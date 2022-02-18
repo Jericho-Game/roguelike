@@ -1,0 +1,63 @@
+{
+  "name": "roguelike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "eslint": "eslint . --ext .tsx",
+    "pre-commit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jericho-Game/roguelike.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jericho-Game/roguelike/issues"
+  },
+  "homepage": "https://github.com/Jericho-Game/roguelike#readme",
+  "devDependencies": {
+    "@types/fork-ts-checker-webpack-plugin": "0.4.5",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11",
+    "@typescript-eslint/eslint-plugin": "5.11.0",
+    "@typescript-eslint/parser": "5.11.0",
+    "autoprefixer": "10.4.2",
+    "css-loader": "6.6.0",
+    "cssnano": "5.0.17",
+    "eslint": "8.9.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "16.1.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-webpack-plugin": "3.1.1",
+    "fork-ts-checker-webpack-plugin": "7.2.1",
+    "html-webpack-plugin": "5.5.0",
+    "husky": "7.0.0",
+    "lint-staged": "12.3.4",
+    "postcss-cli": "9.1.0",
+    "postcss-import": "14.0.2",
+    "postcss-loader": "6.2.1",
+    "style-loader": "3.3.1",
+    "tailwindcss": "3.0.22",
+    "ts-loader": "9.2.6",
+    "typescript": "4.5.5",
+    "webpack": "5.68.0",
+    "webpack-cli": "4.9.2",
+    "webpack-dev-server": "4.7.4",
+    "webpack-merge": "5.8.0"
+  },
+  "dependencies": {
+    "@commitlint/cli": "16.2.1",
+    "@commitlint/config-conventional": "16.2.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
