@@ -17,7 +17,7 @@ export default function App() {
   return (
     <Router>
       <Header />
-      <main className="max-w-7xl mx-auto mt-10 px-4 sm:px-6">
+      <main className="max-w-7xl mx-auto pt-32 px-4 sm:px-6 h-screen">
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/forum" element={<ForumPage />} />

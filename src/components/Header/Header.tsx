@@ -15,7 +15,7 @@ type HeaderProps = {
 export default function Header({ user }: HeaderProps) {
   const { pathname } = useLocation();
   return (
-    <Popover className="relative bg-white">
+    <Popover as="header" className="bg-white fixed w-full top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div
           className={classNames(
