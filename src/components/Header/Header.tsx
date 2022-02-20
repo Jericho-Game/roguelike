@@ -28,9 +28,8 @@ export default function Header({ user }: HeaderProps) {
             <Link
               to="/"
               className={classNames(
-                'flex justify-start items-center gap-2',
+                'inline-flex justify-start items-center gap-2',
                 'text-secondary-normal hover:text-secondary-hover',
-                'lg:w-0 lg:flex-1',
               )}
             >
               <div className="bg-secondary-normal hover:bg-secondary-hover aspect-square w-12 rounded" />
