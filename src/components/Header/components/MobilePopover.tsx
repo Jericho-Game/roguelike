@@ -1,7 +1,10 @@
 import { Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+
+import { Popover, Transition } from '@headlessui/react';
+
 import { XIcon } from '@heroicons/react/outline';
+
 import Logo from '../../Logo';
 import Button from '../../Button';
 import Tab from '../../Tab';

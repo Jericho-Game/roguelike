@@ -20,7 +20,7 @@ type HeaderProps = {
 export default function Header({ user }: HeaderProps) {
   const { pathname } = useLocation();
   return (
-    <Popover as="header" className="bg-white fixed w-full top-0">
+    <Popover as="header" className="bg-white fixed w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
