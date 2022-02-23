@@ -11,12 +11,13 @@ type TabProps<T extends ElementType> = PropsWithChildren<{
 export default function Tab<T extends ElementType = 'button'>({
   as,
   active,
-  className,
+  className = '',
   ...props
 }: TabProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TabProps<T>>): JSX.Element {
   const Component = as ?? 'button';
   return (
     <Component
+      role="tab"
       className={classnames(
         'text-base font-medium border-b-2 py-2',
         'hover:border-primary-hover hover:text-gray-900', // hover state
