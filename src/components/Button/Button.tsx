@@ -5,14 +5,14 @@ type ButtonProps<T extends ElementType> = PropsWithChildren<{
   as?: T;
   className?: string;
   variant: 'primary' | 'secondary' | 'alternate' | 'icon';
-}>;
+}> & Omit<ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'children'>;
 
 export default function Button<T extends ElementType = 'button'>({
   as,
   variant,
   className = '',
   ...props
-}: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) {
+}: ButtonProps<T>) {
   const Component = as ?? 'button';
   return (
     <Component

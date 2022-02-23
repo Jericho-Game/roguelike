@@ -6,14 +6,14 @@ type TabProps<T extends ElementType> = PropsWithChildren<{
   as?: T;
   active?: boolean;
   className?: string;
-}>;
+}> & Omit<ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'children'>;
 
 export default function Tab<T extends ElementType = 'button'>({
   as,
   active,
   className = '',
   ...props
-}: TabProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TabProps<T>>): JSX.Element {
+}: TabProps<T>): JSX.Element {
   const Component = as ?? 'button';
   return (
     <Component
