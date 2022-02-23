@@ -13,17 +13,10 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
-const user: User = {
-  firstname: 'a',
-  lastname: 'a',
-  email: 'a',
-  username: 'a',
-};
-
 export default function App() {
   return (
     <Router>
-      <Header user={user} />
+      <Header />
       <main className="max-w-7xl mx-auto pt-32 px-4 sm:px-6 h-screen">
         <Routes>
           <Route path="/" element={<IndexPage />} />
