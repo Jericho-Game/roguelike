@@ -30,10 +30,10 @@ export default function MobilePopover({ user }: HeaderProps) {
                   <Logo />
                 </Popover.Button>
                 <div className="-mr-2">
-                  <Popover.Button as={Button} variant="icon">
+                  <Button as={Popover.Button} variant="icon">
                     <span className="sr-only">Close menu</span>
                     <XIcon className="h-6 w-6" aria-hidden="true" />
-                  </Popover.Button>
+                  </Button>
                 </div>
               </div>
             </div>

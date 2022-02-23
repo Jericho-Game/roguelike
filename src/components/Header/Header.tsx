@@ -27,10 +27,10 @@ export default function Header({ user }: HeaderProps) {
             <Link to="/"><Logo /></Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
-            <Popover.Button as={Button} variant="icon">
+            <Button as={Popover.Button} variant="icon">
               <span className="sr-only">Open menu</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
-            </Popover.Button>
+            </Button>
           </div>
           <nav className="hidden md:flex items-center space-x-10">
             <Tab as={Link} to="/forum" active={pathname === '/forum'}>Forum</Tab>
