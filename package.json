@@ -64,6 +64,7 @@
     "@headlessui/react": "1.5.0",
     "@heroicons/react": "1.0.5",
     "@inovua/reactdatagrid-community": "4.13.1",
+    "axios": "0.26.0",
     "classnames": "^2.3.1",
     "express": "4.17.3",
     "react": "17.0.2",
