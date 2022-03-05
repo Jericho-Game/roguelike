@@ -1,5 +1,5 @@
 export default function IndexPage() {
   return (
-    <h1>Home Page</h1>
+    <div className="w-full aspect-video" />
   );
 }

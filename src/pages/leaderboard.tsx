@@ -1,5 +1,10 @@
+import LeaderboardTable from '../components/LeaderboardTable';
+
+import useDataFetch from '../hooks/useDataFetch';
+
 export default function LeaderboardPage() {
+  const { data } = useDataFetch<User>('/leaderboard');
   return (
-    <h1>Leaderboard Page</h1>
+    <LeaderboardTable users={data ?? []} />
   );
 }
