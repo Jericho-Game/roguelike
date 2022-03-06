@@ -1,25 +1,23 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { useMemo } from 'react';
 import {
   useTable,
-  usePagination, useSortBy, CellProps,
+  usePagination, useSortBy, useFlexLayout,
 } from 'react-table';
 
 import type {
   Row,
   Column,
+  CellProps,
   TableInstance,
 } from 'react-table';
 
 import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  // SortAscendingIcon,
-  // SortDescendingIcon,
+  SortAscendingIcon,
+  SortDescendingIcon,
 } from '@heroicons/react/solid';
 
-import Button from '../Button';
+import Pagination from '../Pagination';
 
 // Required workaround for missing TypesScript definitions.
 // Will be fixed in react-table v8
@@ -41,53 +39,58 @@ type TableTypeWorkaround<T extends Object> = TableInstance<T> & {
   }
 };
 
-function NameCell({
-  cell,
-}: CellProps<User>) {
-  const props = cell.getCellProps();
-  // eslint-disable-next-line no-console
-  console.log(props);
+function NameCell({ row }: CellProps<User>) {
+  const {
+    original: {
+      avatar,
+      display_name,
+      first_name,
+      second_name,
+      email,
+    },
+  } = row;
   return (
     <div className="flex items-center">
-      test
+      <div className="flex-shrink-0 h-10 w-10">
+        <img className="h-10 w-10 rounded-full" src={avatar} alt="" />
+      </div>
+      <div className="ml-4">
+        <div className="text-sm font-medium text-gray-900">{display_name ?? `${first_name} ${second_name}`}</div>
+        <div className="text-sm text-gray-500">{email}</div>
+      </div>
     </div>
   );
 }
 
-// type SortIconProps = {
-//   isSortedDesc: boolean;
-// };
+type SortIconProps = {
+  isSortedDesc: boolean;
+};
 
-// function SortIcon({ isSortedDesc }: SortIconProps) {
-//   return isSortedDesc
-//   ? <SortDescendingIcon className="w-4 h-4" /> : <SortAscendingIcon className="w-4 h-4" />;
-// }
+function SortIcon({ isSortedDesc }: SortIconProps) {
+  return isSortedDesc
+    ? <SortDescendingIcon className="w-4 h-4 ml-4" />
+    : <SortAscendingIcon className="w-4 h-4 ml-4" />;
+}
 
 export default function LeaderboardTable({ users }: { users: User[] }) {
   const data = useMemo(() => users, [users]);
   const columns = useMemo<Column<User>[]>(() => [
     {
-      Header: 'Name',
       accessor: 'first_name',
+      Header: 'Name',
       Cell: NameCell,
       disableSortBy: true,
-      minWidth: 350,
-      maxWidth: 350,
-      totalWidth: 350,
+      width: 350,
     },
     {
       Header: 'Login',
       accessor: 'login',
-      minWidth: 350,
-      maxWidth: 350,
-      totalWidth: 350,
+      width: 350,
     },
     {
       Header: 'Score',
       accessor: 'score',
-      minWidth: 150,
-      maxWidth: 150,
-      totalWidth: 150,
+      width: 150,
     },
   ], []);
 
@@ -97,133 +100,67 @@ export default function LeaderboardTable({ users }: { users: User[] }) {
     headerGroups,
     page,
     prepareRow,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
+    ...paginationProps
   } = useTable<User>(
     {
       columns,
       data,
     },
+    useFlexLayout,
     useSortBy,
     usePagination,
   ) as TableTypeWorkaround<User>;
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto px-4 pt-4 sm:px-6">
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200" {...getTableProps()}>
-                <thead className="bg-gray-50">
+              <div className="min-w-full divide-y divide-gray-200 table-fixed" {...getTableProps()}>
+                <div className="bg-gray-50">
                   {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <div {...headerGroup.getHeaderGroupProps()}>
                       {headerGroup.headers.map((column) => (
-                        <th
+                        <div
                           {...column.getHeaderProps(column.getSortByToggleProps())}
-                          scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
                           <div className="inline-flex">
                             {column.render('Header')}
+                            {column.isSorted ? (
+                              <SortIcon isSortedDesc={column.isSortedDesc ?? false} />
+                            ) : (
+                              <span className="w-4 h-4" />
+                            )}
                           </div>
-                        </th>
+                        </div>
                       ))}
-                    </tr>
+                    </div>
                   ))}
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200" {...getTableBodyProps()}>
+                </div>
+                <div className="bg-white divide-y divide-gray-200" {...getTableBodyProps()}>
                   {page.map((row) => {
                     prepareRow(row);
                     return (
-                      <tr {...row.getRowProps()}>
+                      <div {...row.getRowProps()}>
                         {row.cells.map((cell) => (
-                          <td className="px-6 py-3 whitespace-nowrap" {...cell.getCellProps()}>
+                          <div className="px-6 py-3 whitespace-nowrap" {...cell.getCellProps()}>
                             <div className="flex items-center">
                               {cell.render('Cell')}
                             </div>
-                          </td>
+                          </div>
                         ))}
-                      </tr>
+                      </div>
                     );
                   })}
-                </tbody>
-              </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="py-3 flex items-center justify-between sticky top-full">
-        <div className="flex-1 flex justify-between sm:hidden">
-          <Button variant="icon" onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</Button>
-          <Button variant="icon" onClick={() => nextPage()} disabled={!canNextPage}>Next</Button>
-        </div>
-        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-          <div className="flex gap-x-2 items-baseline">
-            <span className="text-sm text-gray-700">
-              {`Page ${pageIndex + 1} of ${pageOptions.length}`}
-            </span>
-            <label htmlFor="pageSize">
-              <span className="sr-only">Items Per Page</span>
-              <select
-                id="pageSize"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                value={pageSize}
-                onChange={(e) => setPageSize(Number(e.target.value))}
-              >
-                {[5, 10, 20].map((size) => (
-                  <option key={size} value={size}>{`Show ${size}`}</option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div>
-            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <Button
-                variant="icon"
-                className="rounded-l-md"
-                onClick={() => gotoPage(0)}
-                disabled={!canPreviousPage}
-              >
-                <span className="sr-only">First</span>
-                <ChevronDoubleLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Button>
-              <Button
-                variant="icon"
-                onClick={() => previousPage()}
-                disabled={!canPreviousPage}
-              >
-                <span className="sr-only">Previous</span>
-                <ChevronLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Button>
-              <Button
-                variant="icon"
-                onClick={() => nextPage()}
-                disabled={!canNextPage}
-              >
-                <span className="sr-only">Next</span>
-                <ChevronRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Button>
-              <Button
-                variant="icon"
-                className="rounded-r-md"
-                onClick={() => gotoPage(pageCount - 1)}
-                disabled={!canNextPage}
-              >
-                <span className="sr-only">Last</span>
-                <ChevronDoubleRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </>
+      <Pagination {...paginationProps} />
+    </div>
   );
 }

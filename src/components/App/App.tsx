@@ -28,7 +28,7 @@ export default function App() {
   return (
     <Router>
       <Header user={Math.random() < 0.5 ? user : undefined} />
-      <main className="max-w-7xl mx-auto pt-32 px-4 sm:px-6 h-screen">
+      <main className="mx-auto h-full w-full grow-q">
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/forum" element={<ForumPage />} />
