@@ -5,12 +5,14 @@ import classnames from 'classnames';
 type TabProps<T extends ElementType> = PropsWithChildren<{
   as?: T;
   active?: boolean;
+  variant: 'primary' | 'secondary';
   className?: string;
 }> & Omit<ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'children'>;
 
 export default function Tab<T extends ElementType = 'button'>({
   as,
   active,
+  variant,
   className = '',
   ...props
 }: TabProps<T>): JSX.Element {
@@ -20,10 +22,10 @@ export default function Tab<T extends ElementType = 'button'>({
       role="tab"
       className={classnames(
         'text-base font-medium border-b-2 py-2',
-        'hover:border-primary-hover hover:text-gray-900', // hover state
+        `hover:border-${variant}-hover hover:text-gray-900`, // hover state
         className, // additional classnames
         {
-          'text-gray-900 border-primary-normal': active,
+          [`text-gray-900 border-${variant}-normal`]: active,
           'text-gray-500 border-transparent': !active,
         },
       )}
