@@ -5,3 +5,8 @@ type User = {
   lastname: string;
   password?: string;
 };
+
+type Position = {
+  x: number;
+  y: number;
+};
