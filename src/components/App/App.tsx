@@ -13,11 +13,22 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
+const user: User = {
+  id: 0,
+  login: 'a',
+  phone: '+1234567890',
+  first_name: 'a',
+  second_name: 'a',
+  display_name: 'a a',
+  email: 'a',
+  score: 0,
+};
+
 export default function App() {
   return (
     <Router>
-      <Header />
-      <main className="max-w-7xl mx-auto pt-32 px-4 sm:px-6 h-screen">
+      <Header user={Math.random() < 0.5 ? user : undefined} />
+      <main className="mx-auto h-full w-full grow-q">
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/forum" element={<ForumPage />} />

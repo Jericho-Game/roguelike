@@ -1,7 +1,11 @@
 type User = {
-  username: string;
+  id: number;
+  avatar?: string;
+  login: string;
   email: string;
-  firstname: string;
-  lastname: string;
-  password?: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+  score?: number;
 };
