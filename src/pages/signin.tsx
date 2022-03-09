@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+import classnames from 'classnames';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
 import authServise from '../services/auth';
 import patterns from '../utils/formValidation';
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 type FormData = {
   login: string;
@@ -33,19 +30,19 @@ export default function SignInPage() {
 
   return (
     <div
-      className={classNames(
+      className={classnames(
         'grid grid-rows-[1fr] justify-center items-center w-full h-full bg-gray-100',
       )}
     >
       <div
-        className={classNames(
+        className={classnames(
           'grid grid-rows-[1fr] justify-center items-center bg-white py-6 px-8 relative',
         )}
       >
         <h1 className="font-bold leading-tight  text-4xl text-center mb-6">Sign In Page</h1>
         <form
           onSubmit={onSubmit}
-          className={classNames(
+          className={classnames(
             'rounded-xl  bg-white w-[445px] grid',
           )}
         >
@@ -75,7 +72,7 @@ export default function SignInPage() {
           />
           <Button
             variant="secondary"
-            className={classNames(
+            className={classnames(
               'mt-4 mb-16',
             )}
           >
