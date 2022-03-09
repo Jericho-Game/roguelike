@@ -36,9 +36,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>((
       )}
     />
     {
-        errorText
-        && <span className={classnames('absolute inset-x-0 bottom-0 text-error m-0 text-center')}>{ errorText }</span>
-      }
+      errorText
+      && <span className={classnames('absolute inset-x-0 bottom-0 text-error m-0 text-center')}>{ errorText }</span>
+    }
   </div>
 ));
 
