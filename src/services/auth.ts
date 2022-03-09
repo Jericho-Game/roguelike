@@ -1,17 +1,17 @@
-import { AxiosInstance } from 'axios';
-import getAxiosInstance, { AxiosError, isAxiosError } from '../utils/axios';
+import axios, { AxiosInstance } from 'axios';
+import { AxiosError, baseApiInstance } from '../utils/axios';
 
 class AuthApi {
   http: AxiosInstance;
 
   constructor() {
-    this.http = getAxiosInstance('https://ya-praktikum.tech/api/v2/auth');
+    this.http = baseApiInstance('/auth');
   }
 
   signIn(data: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/signin', data)
       .catch((error: Error | AxiosError) => {
-        if (isAxiosError(error)) {
+        if (axios.isAxiosError(error)) {
           const status = error.response?.status;
           if (status && status === 401) {
             throw new Error('Login or password mismatch');
@@ -27,7 +27,7 @@ class AuthApi {
   signUp(data: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/signup', data)
       .catch((error: Error | AxiosError) => {
-        if (isAxiosError(error)) {
+        if (axios.isAxiosError(error)) {
           const status = error.response?.status;
           if (status && status === 409) {
             throw new Error('User with such data exists');

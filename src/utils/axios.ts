@@ -18,6 +18,12 @@ const getAxiosInstance: GetAxiosInstance = (baseURL = '/') => (
   })
 );
 
-const { isAxiosError } = axios;
+const baseApiInstance: GetAxiosInstance = (url) => (
+  axios.create({
+    ...baseConfig,
+    baseURL: `https://ya-praktikum.tech/api/v2${url}`,
+  })
+);
+
 export default getAxiosInstance;
-export { AxiosError, isAxiosError };
+export { AxiosError, baseApiInstance };
