@@ -15,5 +15,9 @@ export default function Home() {
     }
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div className="w-full aspect-video">
+      <canvas className="m-auto border-2" ref={canvasRef} />
+    </div>
+  );
 }
