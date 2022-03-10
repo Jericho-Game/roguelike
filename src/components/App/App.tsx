@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,21 +14,20 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
-const user: User = {
-  id: 0,
-  login: 'a',
-  phone: '+1234567890',
-  first_name: 'a',
-  second_name: 'a',
-  display_name: 'a a',
-  email: 'a',
-  score: 0,
-};
+import { storeUser } from '../../store/user';
 
 export default function App() {
+  const dispatch = useDispatch();
+  const { isAuthorized, data: user } = useSelector(
+    (state: { user: { isAuthorized: boolean; data: User; } }) => state.user,
+  );
+
+  if (isAuthorized && !user) {
+    dispatch(storeUser());
+  }
   return (
     <Router>
-      <Header user={Math.random() < 0.5 ? user : undefined} />
+      <Header />
       <main className="mx-auto h-full w-full grow-q">
         <Routes>
           <Route path="/" element={<IndexPage />} />

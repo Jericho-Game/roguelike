@@ -24,6 +24,10 @@ class AuthApi {
       });
   }
 
+  getData() {
+    return this.http.get('/user');
+  }
+
   signUp(data: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/signup', data)
       .catch((error: Error | AxiosError) => {
@@ -38,6 +42,10 @@ class AuthApi {
           throw error;
         }
       });
+  }
+
+  signOut() {
+    return this.http.post('/logout');
   }
 }
 
