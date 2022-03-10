@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Header from '../Header';
 import IndexPage from '../../pages/index';
@@ -13,21 +14,14 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
-const user: User = {
-  id: 0,
-  login: 'a',
-  phone: '+1234567890',
-  first_name: 'a',
-  second_name: 'a',
-  display_name: 'a a',
-  email: 'a',
-  score: 0,
-};
+import { storeUser } from '../../store/user';
 
 export default function App() {
+  const dispatch = useDispatch();
+  dispatch(storeUser());
   return (
     <Router>
-      <Header user={Math.random() < 0.5 ? user : undefined} />
+      <Header />
       <main className="mx-auto h-full w-full grow-q">
         <Routes>
           <Route path="/" element={<IndexPage />} />

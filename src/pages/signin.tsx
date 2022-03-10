@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import classnames from 'classnames';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
-import authServise from '../services/auth';
 import patterns from '../utils/formValidation';
+import { signIn } from '../store/user';
 
 type FormData = {
   login: string;
@@ -14,16 +15,18 @@ type FormData = {
 };
 
 export default function SignInPage() {
+  const dispatch = useDispatch();
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
   const onSubmit = handleSubmit((data) => {
-    authServise.signIn(data)
-      // TODO change page
-      .then(() => navigate('/profile'))
-      .catch((error: Error) => {
-        setNotification(error.message);
-      });
+    // TODO change page
+    try {
+      dispatch(signIn(data));
+      navigate('/profile');
+    } catch (error) {
+      setNotification(error.message);
+    }
   });
 
   const notifyNode = notification ? <Notification type="error" className="mt-4 absolute w-[calc(100%-4rem)] bottom-4 ml-8"><span>{notification}</span></Notification> : null;
@@ -68,7 +71,9 @@ export default function SignInPage() {
               required: 'This is required',
             }}
             control={control}
-            render={({ field }) => <Input {...field} id="password" label="Password" errorText={errors.password?.message} />}
+            render={({ field }) => (
+              <Input {...field} type="password" id="password" label="Password" errorText={errors.password?.message} />
+            )}
           />
           <Button
             variant="secondary"

@@ -24,14 +24,14 @@ export default function useDataFetch<T>(url: string) {
     if (isSuccess) {
       resolve(data);
     }
-    reject();
+    reject(new Error('Fail'));
   })
     .then((data: T[]) => setState({
       loading: false,
       error: false,
       data,
     }))
-    .catch((error) => setState({
+    .catch(({ message: error }) => setState({
       error,
       loading: false,
       data: undefined,

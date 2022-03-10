@@ -1,3 +1,5 @@
+type Nullable<T> = T | null;
+
 type User = {
   id: number;
   avatar?: string;

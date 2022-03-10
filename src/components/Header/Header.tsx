@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import classnames from 'classnames';
 
@@ -13,12 +14,18 @@ import Logo from '../Logo';
 import Button from '../Button';
 import MobilePopover from './components/MobilePopover';
 
-type HeaderProps = {
-  user?: User;
-};
+import { signOut } from '../../store/user';
 
-export default function Header({ user }: HeaderProps) {
+export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { data: user } = useSelector(
+    (state: { user: { data: User; } }) => state.user,
+  );
+
+  console.log({ user });
   return (
     <Popover as="header" className="bg-white w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -75,7 +82,18 @@ export default function Header({ user }: HeaderProps) {
                             >
                               Profile
                             </Tab>
-                            <Tab as={Link} to="/signout" className="w-full" onClick={() => close()}>Sign Out</Tab>
+                            <Tab
+                              as={Link}
+                              to="/signin"
+                              className="w-full"
+                              onClick={() => {
+                                dispatch(signOut());
+                                close();
+                                navigate('/');
+                              }}
+                            >
+                              Sign Out
+                            </Tab>
                           </div>
                         </div>
                       </Popover.Panel>
