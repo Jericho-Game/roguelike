@@ -11,3 +11,8 @@ type User = {
   phone: string;
   score?: number;
 };
+
+type Position = {
+  x: number;
+  y: number;
+};
