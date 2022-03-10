@@ -171,7 +171,7 @@ export default function AvatarChanger({
       )}
     >
       <Avatar
-        avatarSrc={newSrc || avatarSrc}
+        avatarSrc={newSrc || `https://ya-praktikum.tech/api/v2/resources/${avatarSrc}`}
         initials={initials}
         className="self-center"
       />
