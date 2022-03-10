@@ -51,7 +51,7 @@ export default function Header() {
                       className="flex items-center"
                       active={open || pathname === '/profile'}
                     >
-                      <span>Account</span>
+                      <span>{user.display_name}</span>
                       <ChevronDownIcon
                         className={classnames('ml-2 h-5 w-5', {
                           'text-gray-600': open,

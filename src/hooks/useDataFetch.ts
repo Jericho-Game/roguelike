@@ -18,14 +18,7 @@ export default function useDataFetch<T>(url: string) {
     error: false,
     data: undefined,
   });
-  const fetcher = () => new Promise((resolve, reject) => {
-    const data = demoData[url];
-    const isSuccess = Math.random() < 0.5;
-    if (isSuccess) {
-      resolve(data);
-    }
-    reject(new Error('Fail'));
-  })
+  const fetcher = () => Promise.resolve(demoData[url])
     .then((data: T[]) => setState({
       loading: false,
       error: false,
