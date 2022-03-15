@@ -20,19 +20,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>((
     onChange,
     label,
     id,
+    value,
   },
   ref,
 ) => (
-  <div className={classnames('grid pb-8 relative')}>
+  <div className={classnames('grid pb-6 relative')}>
     {label && id && <label htmlFor={id} className={classnames('text-gray-400 mb-1')}>{label}</label>}
     <input
       ref={ref}
       onChange={onChange}
       type={type}
+      value={value}
       className={classnames(
         className,
-        'rounded border border-[#E1E1E1] w-auto',
-        'pt-[17px] pb-[14px] pl-[24px] pr-[40px]',
+        'rounded border border-[#E1E1E1] w-auto pb-2 pt-2 pl-[24px] pr-[40px]',
+        { 'border-error': errorText },
       )}
     />
     {
