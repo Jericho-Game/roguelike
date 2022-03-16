@@ -20,8 +20,6 @@ import { storeUser } from '../../store/user';
 
 export default function App() {
   const dispatch = useDispatch();
-
-  console.log(document.cookie);
   if (Cookies.get('userAuthorized')) {
     dispatch(storeUser());
   }

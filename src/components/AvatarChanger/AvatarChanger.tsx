@@ -43,9 +43,7 @@ export default function AvatarChanger(user: Pick<User, 'first_name' | 'second_na
     const form = new FormData();
     form.append('avatar', file);
     userServise.changeAvatar(form)
-      .then((response: User) => {
-        // eslint-disable-next-line
-        console.log('response', response)
+      .then(() => {
         setAvatarIsEdit(false);
       })
       .catch((error: Error) => {
