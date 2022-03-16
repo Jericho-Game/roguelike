@@ -11,12 +11,12 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 
 import Tab from '../Tab';
 import Logo from '../Logo';
+import Avatar from '../Avatar';
 import Button from '../Button';
 import MobilePopover from './components/MobilePopover';
 
 import { signOut } from '../../store/user';
 import type { UserState } from '../../store/user';
-import Avatar from '../Avatar';
 
 export default function Header() {
   const dispatch = useDispatch();
