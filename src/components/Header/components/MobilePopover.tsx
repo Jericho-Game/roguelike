@@ -10,7 +10,7 @@ import Button from '../../Button';
 import Tab from '../../Tab';
 
 type HeaderProps = {
-  user?: User;
+  user: Nullable<User>;
 };
 
 export default function MobilePopover({ user }: HeaderProps) {
