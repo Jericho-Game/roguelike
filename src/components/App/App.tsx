@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import * as Cookies from 'js-cookie';
+
 import Header from '../Header';
 import IndexPage from '../../pages/index';
 import Page404 from '../../pages/404';
@@ -18,7 +20,11 @@ import { storeUser } from '../../store/user';
 
 export default function App() {
   const dispatch = useDispatch();
-  dispatch(storeUser());
+
+  console.log(document.cookie);
+  if (Cookies.get('userAuthorized')) {
+    dispatch(storeUser());
+  }
   return (
     <Router>
       <Header />

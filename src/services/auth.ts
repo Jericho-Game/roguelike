@@ -1,3 +1,4 @@
+import * as Cookies from 'js-cookie';
 import axios, { AxiosInstance } from 'axios';
 import { AxiosError, baseApiInstance } from '../utils/axios';
 
@@ -10,6 +11,7 @@ class AuthApi {
 
   signIn(data: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/signin', data)
+      .then(() => Cookies.set('userAuthorized', 'true', { expires: 30 }))
       .catch((error: Error | AxiosError) => {
         if (axios.isAxiosError(error)) {
           const status = error.response?.status;
@@ -45,7 +47,8 @@ class AuthApi {
   }
 
   signOut() {
-    return this.http.post('/logout');
+    return this.http.post('/logout')
+      .then(() => Cookies.remove('userAuthorized'));
   }
 }
 
