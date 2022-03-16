@@ -7,15 +7,7 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import Notification from '../Notification';
 
-type OwnProps = {
-  avatarSrc: string | undefined;
-  initials: string;
-};
-
-export default function AvatarChanger({
-  avatarSrc,
-  initials,
-}: OwnProps) {
+export default function AvatarChanger(user: Pick<User, 'first_name' | 'second_name' | 'avatar'>) {
   const [notification, setNotification] = useState('');
   const elementInputFile = useRef<HTMLInputElement>(null);
   const [newSrc, setNewSrc] = useState('');
@@ -63,6 +55,8 @@ export default function AvatarChanger({
         setNotification(error.message);
       });
   }, []);
+
+  const { avatar } = user;
 
   const clearInputAvatar = () => {
     if (elementInputFile && elementInputFile?.current) {
@@ -171,9 +165,9 @@ export default function AvatarChanger({
       )}
     >
       <Avatar
-        avatarSrc={newSrc || avatarSrc}
-        initials={initials}
-        className="self-center"
+        {...user}
+        avatar={newSrc || `https://ya-praktikum.tech/api/v2/resources/${avatar}`}
+        className="self-center text-7xl"
       />
       { buttonAvatarEdit }
       { notifyNode }

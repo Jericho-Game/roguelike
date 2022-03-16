@@ -1,16 +1,14 @@
 import classnames from 'classnames';
 
-type OwnProps = {
+type OwnProps = Pick<User, 'first_name' | 'second_name' | 'avatar'> & {
   className?: string,
-  avatarSrc?: string | null;
-  initials?: string;
 };
 
 export default function Avatar({
   className = '',
-  avatarSrc,
-  initials,
+  ...user
 }: OwnProps) {
+  const initials = user.first_name[0] + user.second_name[1];
   return (
     <div
       className={classnames(
@@ -18,22 +16,9 @@ export default function Avatar({
         'flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square',
       )}
     >
-      {avatarSrc ? (
-        <img
-          src={avatarSrc}
-          alt="avatar"
-          className="m-0"
-        />
-      ) : (
-        <span
-          className={classnames(
-            className,
-            'text-7xl',
-          )}
-        >
-          { initials }
-        </span>
-      )}
+      {user.avatar
+        ? <img src={user.avatar} alt="avatar" className="m-0" />
+        : (<span className="uppercase">{initials}</span>)}
     </div>
   );
 }

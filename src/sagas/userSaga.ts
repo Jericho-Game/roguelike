@@ -1,54 +1,97 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import type { TakeableChannel } from 'redux-saga';
+import {
+  all,
+  call,
+  put,
+  takeLatest,
+} from 'redux-saga/effects';
 
-import { signIn, signOut, storeUser } from '../store/user';
+import {
+  signUp,
+  signIn,
+  signOut,
+  storeUser,
+  changeProfile,
+} from '../store/user';
 import authService from '../services/auth';
+import userService from '../services/user';
 
-function* signInWorker(action: { type: string, payload: Record<string, unknown> }) {
-  const { login, password } = action.payload;
-  const { success, fulfill } = signIn;
+type UserAction = Action<User>;
+
+function* signUpWorker(action: UserAction) {
+  const { success, fulfill, failure } = signUp;
 
   try {
-    yield call([authService, authService.signIn], { login, password });
+    yield call([authService, authService.signUp], action.payload);
+    const { data } = yield call([authService, authService.getData]);
 
-    yield put(success({ isAuthorized: true }));
+    yield put(success({ data }));
   } catch (error) {
-    console.error(error);
+    yield put(failure(error.message));
   } finally {
     yield put(fulfill());
   }
 }
 
-// worker
-function* setUserWorker() {
-  const { success, fulfill } = storeUser;
+function* signInWorker(action: UserAction) {
+  const { success, fulfill, failure } = signIn;
+
+  try {
+    yield call([authService, authService.signIn], action.payload);
+    const { data } = yield call([authService, authService.getData]);
+
+    yield put(success({ data }));
+  } catch (error) {
+    yield put(failure(error.message));
+  } finally {
+    yield put(fulfill());
+  }
+}
+
+function* storeUserWorker() {
+  const { success, fulfill, failure } = signIn;
 
   try {
     const { data } = yield call([authService, authService.getData]);
     yield put(success({ data }));
   } catch (error) {
-    console.error(error);
+    yield put(failure(error.message));
   } finally {
     yield put(fulfill());
   }
 }
 
 function* signOutWorker() {
-  const { success, fulfill } = storeUser;
+  const { success, fulfill, failure } = signOut;
 
   try {
     yield call([authService, authService.signOut]);
-    yield put(success({ isAuthorized: false, data: null }));
+    yield put(success({ data: null }));
   } catch (error) {
-    console.error(error);
+    yield put(failure(error.message));
   } finally {
     yield put(fulfill());
   }
 }
 
-// watcher
+function* changeProfileWorker(action: UserAction) {
+  const { success, fulfill, failure } = changeProfile;
+
+  try {
+    const { data } = yield call([userService, userService.changeProfile], action.payload);
+    yield put(success({ data }));
+  } catch (error) {
+    yield put(failure(error.message));
+  } finally {
+    yield put(fulfill());
+  }
+}
+
 export default function* userWatcher() {
-  yield takeLatest(signOut.TRIGGER as unknown as TakeableChannel<unknown>, signOutWorker);
-  yield takeLatest(storeUser.TRIGGER as unknown as TakeableChannel<unknown>, setUserWorker);
-  yield takeLatest(signIn.TRIGGER as unknown as TakeableChannel<unknown>, signInWorker);
+  yield all([
+    takeLatest(signUp.TRIGGER, signUpWorker),
+    takeLatest(signIn.TRIGGER, signInWorker),
+    takeLatest(storeUser.TRIGGER, storeUserWorker),
+    takeLatest(signOut.TRIGGER, signOutWorker),
+    takeLatest(changeProfile.TRIGGER, changeProfileWorker),
+  ]);
 }

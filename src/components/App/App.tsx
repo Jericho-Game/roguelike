@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Header from '../Header';
 import IndexPage from '../../pages/index';
@@ -18,13 +18,7 @@ import { storeUser } from '../../store/user';
 
 export default function App() {
   const dispatch = useDispatch();
-  const { isAuthorized, data: user } = useSelector(
-    (state: { user: { isAuthorized: boolean; data: User; } }) => state.user,
-  );
-
-  if (isAuthorized && !user) {
-    dispatch(storeUser());
-  }
+  dispatch(storeUser());
   return (
     <Router>
       <Header />
