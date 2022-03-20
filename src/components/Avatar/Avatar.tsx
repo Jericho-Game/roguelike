@@ -1,16 +1,19 @@
 import classnames from 'classnames';
 
 type OwnProps = {
-  className?: string,
-  avatarSrc?: string | null;
-  initials?: string;
+  src?: string;
+  firstName: string;
+  secondName: string;
+  className?: string;
 };
 
 export default function Avatar({
   className = '',
-  avatarSrc,
-  initials,
+  src,
+  firstName,
+  secondName,
 }: OwnProps) {
+  const initials = firstName[0] + secondName[0];
   return (
     <div
       className={classnames(
@@ -18,22 +21,9 @@ export default function Avatar({
         'flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square',
       )}
     >
-      {avatarSrc ? (
-        <img
-          src={avatarSrc}
-          alt="avatar"
-          className="m-0"
-        />
-      ) : (
-        <span
-          className={classnames(
-            className,
-            'text-7xl',
-          )}
-        >
-          { initials }
-        </span>
-      )}
+      {src
+        ? <img src={src} alt={`${firstName} ${secondName}`} className="m-0" />
+        : <span className="uppercase">{initials}</span>}
     </div>
   );
 }

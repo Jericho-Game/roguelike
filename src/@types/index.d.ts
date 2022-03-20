@@ -1,5 +1,12 @@
+type Nullable<T> = T | null;
+
+type Action<T> = {
+  type: string;
+  payload: T;
+};
+
 type User = {
-  id: number;
+  id?: number;
   avatar?: string;
   login: string;
   email: string;

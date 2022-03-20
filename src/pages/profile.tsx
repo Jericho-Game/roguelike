@@ -1,13 +1,14 @@
 import { useState, MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import classnames from 'classnames';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import AvatarChanger from '../components/AvatarChanger';
 import Notification from '../components/Notification';
-import userServise from '../services/user';
 import patterns from '../utils/formValidation';
+import { changeProfile } from '../store/user';
+import type { UserState } from '../store/user';
 
 type FormData = {
   first_name: string;
@@ -18,83 +19,71 @@ type FormData = {
   phone: string;
 };
 
-const user = {
-  login: 'string',
-  email: 'string',
-  first_name: 'string',
-  second_name: 'string',
-  display_name: 'string',
-  phone: '00000',
-  avatar: undefined,
-};
+const inputs = [
+  {
+    name: 'first_name' as const,
+    label: 'First name',
+    pattern: patterns.DEFAULT,
+    errorMessage: 'First name is invalid',
+    required: 'This is required',
+  },
+  {
+    name: 'second_name' as const,
+    label: 'Second name',
+    pattern: patterns.DEFAULT,
+    errorMessage: 'Second name is invalid',
+    required: 'This is required',
+  },
+  {
+    name: 'display_name' as const,
+    label: 'Display name',
+    pattern: patterns.DEFAULT,
+    errorMessage: 'Display name is invalid',
+    required: 'This is required',
+  },
+  {
+    name: 'login' as const,
+    label: 'Login',
+    pattern: patterns.LOGIN,
+    errorMessage: 'Login is invalid',
+    required: 'This is required',
+  },
+  {
+    name: 'email' as const,
+    label: 'Email',
+    pattern: patterns.EMAIL,
+    errorMessage: 'Email is invalid',
+    required: 'This is required',
+  },
+  {
+    name: 'phone' as const,
+    label: 'Phone',
+    pattern: patterns.PHONE,
+    errorMessage: 'Phone is invalid',
+    required: 'This is required',
+  },
+];
 
 export default function ProfilePage() {
-  const {
-    control, handleSubmit, formState: { errors }, reset,
-  } = useForm<FormData>();
+  const dispatch = useDispatch();
+  const { data: user } = useSelector((state: { user: UserState }) => state.user);
   const [notification, setNotification] = useState('');
   const [dataIsEdit, setDataIsEdit] = useState(false);
-  const [data, setData] = useState(user as User);
-  const navigate = useNavigate();
-  const onSubmit = handleSubmit((formData) => {
-    // eslint-disable-next-line
-    console.log('formData', formData)
-    userServise.changeProfile(formData)
-      // TODO change page
-      .then(() => {
-        setData(user as User);
-        setDataIsEdit(false);
-      })
-      .then(() => navigate('/profile'))
-      .catch((error: Error) => {
-        setNotification(error.message);
-      });
-  });
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
 
-  const inputs = [
-    {
-      name: 'first_name' as const,
-      label: 'First name',
-      pattern: patterns.DEFAULT,
-      errorMessage: 'First name is invalid',
-      required: 'This is required',
-    },
-    {
-      name: 'second_name' as const,
-      label: 'Second name',
-      pattern: patterns.DEFAULT,
-      errorMessage: 'Second name is invalid',
-      required: 'This is required',
-    },
-    {
-      name: 'display_name' as const,
-      label: 'Display name',
-      pattern: patterns.DEFAULT,
-      errorMessage: 'Display name is invalid',
-      required: 'This is required',
-    },
-    {
-      name: 'login' as const,
-      label: 'Login',
-      pattern: patterns.LOGIN,
-      errorMessage: 'Login is invalid',
-      required: 'This is required',
-    },
-    {
-      name: 'email' as const,
-      label: 'Email',
-      pattern: patterns.EMAIL,
-      errorMessage: 'Email is invalid',
-      required: 'This is required',
-    },
-    {
-      name: 'phone' as const,
-      label: 'Phone',
-      pattern: patterns.PHONE,
-      errorMessage: 'Phone is invalid',
-      required: 'This is required',
-    },
-  ];
+  const onSubmit = handleSubmit((formData) => {
+    try {
+      dispatch(changeProfile(formData));
+      setDataIsEdit(false);
+    } catch (error) {
+      setNotification(error.message);
+    }
+  });
 
   const editData = (event: MouseEvent) => {
     event?.preventDefault();
@@ -159,9 +148,7 @@ export default function ProfilePage() {
       </Button>
     );
 
-  const initials = data.first_name[0] + data.second_name[1];
-
-  return (
+  return user && (
     <div
       className={classnames(
         'flex flex-col h-full',
@@ -203,7 +190,7 @@ export default function ProfilePage() {
                     required: input.required,
                   }}
                   control={control}
-                  defaultValue={data?.[input.name]}
+                  defaultValue={user?.[input.name]}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -227,10 +214,7 @@ export default function ProfilePage() {
               'h-full',
             )}
           >
-            <AvatarChanger
-              avatarSrc={user.avatar}
-              initials={initials}
-            />
+            <AvatarChanger {...user} />
           </section>
         </div>
       </div>

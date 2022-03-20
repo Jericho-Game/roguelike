@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import classnames from 'classnames';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
-import authServise from '../services/auth';
 import patterns from '../utils/formValidation';
+
+import { signIn } from '../store/user';
+import type { UserState } from '../store/user';
 
 type FormData = {
   login: string;
@@ -14,19 +17,35 @@ type FormData = {
 };
 
 export default function SignInPage() {
+  const dispatch = useDispatch();
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
+  const { data: user, error } = useSelector((state: { user: UserState }) => state.user);
+
+  useEffect(() => {
+    if (user && !error) {
+      navigate('/');
+    } else if (error) {
+      setNotification(error);
+    }
+  }, [user, error, navigate]);
+
   const onSubmit = handleSubmit((data) => {
-    authServise.signIn(data)
-      // TODO change page
-      .then(() => navigate('/profile'))
-      .catch((error: Error) => {
-        setNotification(error.message);
-      });
+    try {
+      dispatch(signIn(data));
+    } catch (err) {
+      setNotification(err.message);
+    }
   });
 
-  const notifyNode = notification ? <Notification type="error" className="mt-4 absolute w-[calc(100%-4rem)] bottom-4 ml-8"><span>{notification}</span></Notification> : null;
+  const notifyNode = notification
+    ? (
+      <Notification type="error" className="mt-4 absolute w-[calc(100%-4rem)] bottom-4 ml-8">
+        <span>{notification}</span>
+      </Notification>
+    )
+    : null;
 
   return (
     <div
@@ -68,7 +87,9 @@ export default function SignInPage() {
               required: 'This is required',
             }}
             control={control}
-            render={({ field }) => <Input {...field} id="password" label="Password" errorText={errors.password?.message} />}
+            render={({ field }) => (
+              <Input {...field} type="password" id="password" label="Password" errorText={errors.password?.message} />
+            )}
           />
           <Button
             variant="secondary"

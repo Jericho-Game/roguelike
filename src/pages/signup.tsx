@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import classnames from 'classnames';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
-import authServise from '../services/auth';
 import patterns from '../utils/formValidation';
+import { signUp, UserState } from '../store/user';
 
 type FormData = {
   first_name: string;
@@ -18,16 +19,24 @@ type FormData = {
 };
 
 export default function SignInPage() {
+  const dispatch = useDispatch();
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
+  const { data: user } = useSelector((state: { user: UserState }) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   const onSubmit = handleSubmit((data) => {
-    authServise.signUp(data)
-      // TODO change page
-      .then(() => navigate('/profile'))
-      .catch((error: Error) => {
-        setNotification(error.message);
-      });
+    try {
+      dispatch(signUp(data));
+    } catch (error) {
+      setNotification(error.message);
+    }
   });
 
   const inputs = [

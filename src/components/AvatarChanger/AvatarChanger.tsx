@@ -7,15 +7,7 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import Notification from '../Notification';
 
-type OwnProps = {
-  avatarSrc: string | undefined;
-  initials: string;
-};
-
-export default function AvatarChanger({
-  avatarSrc,
-  initials,
-}: OwnProps) {
+export default function AvatarChanger(user: Pick<User, 'first_name' | 'second_name' | 'avatar'>) {
   const [notification, setNotification] = useState('');
   const elementInputFile = useRef<HTMLInputElement>(null);
   const [newSrc, setNewSrc] = useState('');
@@ -51,9 +43,7 @@ export default function AvatarChanger({
     const form = new FormData();
     form.append('avatar', file);
     userServise.changeAvatar(form)
-      .then((response: User) => {
-        // eslint-disable-next-line
-        console.log('response', response)
+      .then(() => {
         setAvatarIsEdit(false);
       })
       .catch((error: Error) => {
@@ -63,6 +53,12 @@ export default function AvatarChanger({
         setNotification(error.message);
       });
   }, []);
+
+  const {
+    avatar,
+    first_name: firstName,
+    second_name: secondName,
+  } = user;
 
   const clearInputAvatar = () => {
     if (elementInputFile && elementInputFile?.current) {
@@ -171,9 +167,10 @@ export default function AvatarChanger({
       )}
     >
       <Avatar
-        avatarSrc={newSrc || avatarSrc}
-        initials={initials}
-        className="self-center"
+        src={newSrc || avatar}
+        firstName={firstName}
+        secondName={secondName}
+        className="self-center text-7xl"
       />
       { buttonAvatarEdit }
       { notifyNode }

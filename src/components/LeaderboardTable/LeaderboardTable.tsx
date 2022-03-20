@@ -18,6 +18,7 @@ import {
 } from '@heroicons/react/solid';
 
 import Pagination from '../Pagination';
+import Avatar from '../Avatar';
 
 // Required workaround for missing TypesScript definitions.
 // Will be fixed in react-table v8
@@ -43,19 +44,22 @@ function NameCell({ row }: CellProps<User>) {
   const {
     original: {
       avatar,
-      display_name,
-      first_name,
-      second_name,
+      display_name: displayName,
+      first_name: firstName,
+      second_name: secondName,
       email,
     },
   } = row;
   return (
     <div className="flex items-center">
-      <div className="flex-shrink-0 h-10 w-10">
-        <img className="h-10 w-10 rounded-full" src={avatar} alt="" />
-      </div>
+      <Avatar
+        src={avatar}
+        firstName={firstName}
+        secondName={secondName}
+        className="flex-shrink-0 h-10 w-10"
+      />
       <div className="ml-4">
-        <div className="text-sm font-medium text-gray-900">{display_name ?? `${first_name} ${second_name}`}</div>
+        <div className="text-sm font-medium text-gray-900">{displayName ?? `${firstName} ${secondName}`}</div>
         <div className="text-sm text-gray-500">{email}</div>
       </div>
     </div>

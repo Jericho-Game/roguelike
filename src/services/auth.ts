@@ -10,6 +10,7 @@ class AuthApi {
 
   signIn(data: Record<string, unknown>): Promise<unknown> {
     return this.http.post('/signin', data)
+      .then(() => window.localStorage.setItem('userAuthorized', 'true'))
       .catch((error: Error | AxiosError) => {
         if (axios.isAxiosError(error)) {
           const status = error.response?.status;
@@ -22,6 +23,10 @@ class AuthApi {
           throw error;
         }
       });
+  }
+
+  getData() {
+    return this.http.get('/user');
   }
 
   signUp(data: Record<string, unknown>): Promise<unknown> {
@@ -38,6 +43,11 @@ class AuthApi {
           throw error;
         }
       });
+  }
+
+  signOut() {
+    return this.http.post('/logout')
+      .then(() => window.localStorage.removeItem('userAuthorized'));
   }
 }
 

@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import classnames from 'classnames';
 
@@ -10,15 +11,19 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 
 import Tab from '../Tab';
 import Logo from '../Logo';
+import Avatar from '../Avatar';
 import Button from '../Button';
 import MobilePopover from './components/MobilePopover';
 
-type HeaderProps = {
-  user?: User;
-};
+import { signOut } from '../../store/user';
+import type { UserState } from '../../store/user';
 
-export default function Header({ user }: HeaderProps) {
+export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { data: user } = useSelector((state: { user: UserState }) => state.user);
   return (
     <Popover as="header" className="bg-white w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -33,8 +38,8 @@ export default function Header({ user }: HeaderProps) {
             </Button>
           </div>
           <nav className="hidden md:flex items-center space-x-10">
-            <Tab as={Link} to="/forum" active={pathname === '/forum'}>Forum</Tab>
-            <Tab as={Link} to="/leaderboard" active={pathname === '/leaderboard'}>Leaderboard</Tab>
+            <Tab className="py-4" as={Link} to="/forum" active={pathname === '/forum'}>Forum</Tab>
+            <Tab className="py-4" as={Link} to="/leaderboard" active={pathname === '/leaderboard'}>Leaderboard</Tab>
             {user ? (
               <Popover className="relative">
                 {({ open, close }) => (
@@ -44,7 +49,13 @@ export default function Header({ user }: HeaderProps) {
                       className="flex items-center"
                       active={open || pathname === '/profile'}
                     >
-                      <span>Account</span>
+                      <Avatar
+                        src={user.avatar}
+                        firstName={user.first_name}
+                        secondName={user.second_name}
+                        className="flex-shrink-0 h-10 w-10 mr-2"
+                      />
+                      <span>{user.display_name}</span>
                       <ChevronDownIcon
                         className={classnames('ml-2 h-5 w-5', {
                           'text-gray-600': open,
@@ -63,7 +74,7 @@ export default function Header({ user }: HeaderProps) {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 right-0 w-40 max-w-sm sm:px-0">
+                      <Popover.Panel className="absolute z-10 right-0 w-full max-w-sm sm:px-0">
                         <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                           <div className="relative grid gap-6 bg-white px-5 py-6">
                             <Tab
@@ -75,7 +86,18 @@ export default function Header({ user }: HeaderProps) {
                             >
                               Profile
                             </Tab>
-                            <Tab as={Link} to="/signout" className="w-full" onClick={() => close()}>Sign Out</Tab>
+                            <Tab
+                              as={Link}
+                              to="/signin"
+                              className="w-full"
+                              onClick={() => {
+                                dispatch(signOut());
+                                close();
+                                navigate('/');
+                              }}
+                            >
+                              Sign Out
+                            </Tab>
                           </div>
                         </div>
                       </Popover.Panel>
