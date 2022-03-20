@@ -43,17 +43,23 @@ type TableTypeWorkaround<T extends Object> = TableInstance<T> & {
 function NameCell({ row }: CellProps<User>) {
   const {
     original: {
-      display_name,
-      first_name,
-      second_name,
+      avatar,
+      display_name: displayName,
+      first_name: firstName,
+      second_name: secondName,
       email,
     },
   } = row;
   return (
     <div className="flex items-center">
-      <Avatar {...row.original} className="flex-shrink-0 h-10 w-10" />
+      <Avatar
+        src={avatar}
+        firstName={firstName}
+        secondName={secondName}
+        className="flex-shrink-0 h-10 w-10"
+      />
       <div className="ml-4">
-        <div className="text-sm font-medium text-gray-900">{display_name ?? `${first_name} ${second_name}`}</div>
+        <div className="text-sm font-medium text-gray-900">{displayName ?? `${firstName} ${secondName}`}</div>
         <div className="text-sm text-gray-500">{email}</div>
       </div>
     </div>

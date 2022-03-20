@@ -50,8 +50,9 @@ export default function Header() {
                       active={open || pathname === '/profile'}
                     >
                       <Avatar
-                        {...user}
-                        avatar={`https://ya-praktikum.tech/api/v2/resources/${user.avatar}`}
+                        src={user.avatar}
+                        firstName={user.first_name}
+                        secondName={user.second_name}
                         className="flex-shrink-0 h-10 w-10 mr-2"
                       />
                       <span>{user.display_name}</span>

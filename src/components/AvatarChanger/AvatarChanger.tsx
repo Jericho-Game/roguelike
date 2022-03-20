@@ -54,7 +54,11 @@ export default function AvatarChanger(user: Pick<User, 'first_name' | 'second_na
       });
   }, []);
 
-  const { avatar } = user;
+  const {
+    avatar,
+    first_name: firstName,
+    second_name: secondName,
+  } = user;
 
   const clearInputAvatar = () => {
     if (elementInputFile && elementInputFile?.current) {
@@ -163,8 +167,9 @@ export default function AvatarChanger(user: Pick<User, 'first_name' | 'second_na
       )}
     >
       <Avatar
-        {...user}
-        avatar={newSrc || `https://ya-praktikum.tech/api/v2/resources/${avatar}`}
+        src={newSrc || avatar}
+        firstName={firstName}
+        secondName={secondName}
         className="self-center text-7xl"
       />
       { buttonAvatarEdit }

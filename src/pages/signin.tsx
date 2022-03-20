@@ -39,7 +39,13 @@ export default function SignInPage() {
     }
   });
 
-  const notifyNode = notification ? <Notification type="error" className="mt-4 absolute w-[calc(100%-4rem)] bottom-4 ml-8"><span>{notification}</span></Notification> : null;
+  const notifyNode = notification
+    ? (
+      <Notification type="error" className="mt-4 absolute w-[calc(100%-4rem)] bottom-4 ml-8">
+        <span>{notification}</span>
+      </Notification>
+    )
+    : null;
 
   return (
     <div
