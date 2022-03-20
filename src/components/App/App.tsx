@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Header from '../Header';
 import IndexPage from '../../pages/index';
@@ -13,7 +14,13 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
+import { storeUser } from '../../store/user';
+
 export default function App() {
+  const dispatch = useDispatch();
+  if (window.localStorage.getItem('userAuthorized')) {
+    dispatch(storeUser());
+  }
   return (
     <Router>
       <Header />

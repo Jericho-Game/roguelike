@@ -1,9 +1,20 @@
+type Nullable<T> = T | null;
+
+type Action<T> = {
+  type: string;
+  payload: T;
+};
+
 type User = {
-  username: string;
+  id?: number;
+  avatar?: string;
+  login: string;
   email: string;
-  firstname: string;
-  lastname: string;
-  password?: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+  score?: number;
 };
 
 type ThreadComment = {
