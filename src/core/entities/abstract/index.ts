@@ -1,6 +1,6 @@
 import {
   CELL_HEIGHT, CELL_WIDTH, RectMode,
-} from '../../../constants';
+} from '../../constants';
 import CanvasContainer from '../../graphics';
 
 export default abstract class AbstractEntity {
@@ -10,7 +10,7 @@ export default abstract class AbstractEntity {
 
   health = 100;
 
-  damage = 100;
+  damage = 25;
 
   canvas: CanvasContainer | null = null;
 

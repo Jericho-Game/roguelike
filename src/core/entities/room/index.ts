@@ -1,5 +1,5 @@
+import { CELL_HEIGHT, CELL_WIDTH } from '../../constants';
 import CanvasContainer from '../../graphics';
-import { CELL_HEIGHT, CELL_WIDTH } from '../../../constants';
 import Floor from '../floor';
 import Enemy from '../enemy';
 import Player from '../player';

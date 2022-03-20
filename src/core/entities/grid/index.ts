@@ -17,7 +17,7 @@ import {
   GAME_SUCCESS_END_TYPE,
   GAME_FAILED_END_TYPE,
   RectMode,
-} from '../../../constants';
+} from '../../constants';
 
 export default class Grid {
   type = GAME_START_TYPE;

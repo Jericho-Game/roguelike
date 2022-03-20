@@ -4,7 +4,7 @@ import {
   ENEMY_HEIGHT,
   ENEMY_TYPE,
   ENEMY_WIDTH,
-} from '../../../constants';
+} from '../../constants';
 import AbstractEntity from '../abstract';
 
 export default class Enemy extends AbstractEntity {

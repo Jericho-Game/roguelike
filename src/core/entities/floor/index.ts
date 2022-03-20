@@ -1,6 +1,6 @@
 import {
   RectMode, FLOOR_TYPE, CELL_WIDTH, CELL_HEIGHT,
-} from '../../../constants';
+} from '../../constants';
 import AbstractEntity from '../abstract';
 
 export default class Floor extends AbstractEntity {

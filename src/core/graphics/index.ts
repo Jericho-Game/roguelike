@@ -2,7 +2,7 @@ import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
   RectMode,
-} from '../../constants';
+} from '../constants';
 
 // Класс для упрощенной работы с canvas
 export default class CanvasContainer {

@@ -6,7 +6,7 @@ import {
   PLAYER_WIDTH,
   PLAYER_HEIGHT,
   ENEMY_TYPE,
-} from '../../../constants';
+} from '../../constants';
 import AbstractEntity from '../abstract';
 
 type Controls = {
