@@ -18,15 +18,17 @@ type User = {
 };
 
 type ThreadComment = {
+  id: number;
+  userId: number;
   content: string;
-  user: User;
-  date: Date;
+  date: Date | string;
 };
 
 type Thread = {
   id: number;
-  date: Date;
+  date: Date | string;
   title: string;
   content: string;
+  category: 'main' | 'questions' | 'versions';
   comments: ThreadComment[];
 };

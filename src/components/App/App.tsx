@@ -28,6 +28,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/forum" element={<ForumPage />} />
+          <Route path="/forum/:id" element={<ForumPage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
