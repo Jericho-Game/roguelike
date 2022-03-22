@@ -8,10 +8,6 @@ class UserApi {
     this.http = getAxiosInstance('https://ya-praktikum.tech/api/v2');
   }
 
-  getUserData(data: string) {
-    return this.http.post('/user/search', data);
-  }
-
   changeProfile(data: User): Promise<User> {
     return this.http.put('/user/profile', data);
   }
