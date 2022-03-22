@@ -9,7 +9,7 @@ type TabProps<T extends ElementType> = PropsWithChildren<{
   className?: string;
 }> & Omit<ComponentPropsWithoutRef<T>, 'as' | 'className' | 'variant' | 'children'>;
 
-export default function Tabu<T extends ElementType = 'button'>({
+export default function Tab<T extends ElementType = 'button'>({
   as,
   active,
   variant,
