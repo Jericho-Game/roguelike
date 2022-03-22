@@ -38,8 +38,8 @@ export default function Header() {
             </Button>
           </div>
           <nav className="hidden md:flex items-center space-x-10">
-            <Tab as={Link} variant="primary" to="/forum" active={pathname === '/forum'}>Forum</Tab>
-            <Tab as={Link} variant="primary" to="/leaderboard" active={pathname === '/leaderboard'}>Leaderboard</Tab>
+            <Tab as={Link} variant="primary" to="/forum" active={pathname === '/forum'} className="py-4">Forum</Tab>
+            <Tab as={Link} variant="primary" to="/leaderboard" active={pathname === '/leaderboard'} className="py-4">Leaderboard</Tab>
             {user ? (
               <Popover className="relative">
                 {({ open, close }) => (
@@ -47,7 +47,7 @@ export default function Header() {
                     <Tab
                       as={Popover.Button}
                       variant="primary"
-                      className="flex items-center"
+                      className="flex items-center py-2"
                       active={open || pathname === '/profile'}
                     >
                       <Avatar

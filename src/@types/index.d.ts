@@ -19,7 +19,7 @@ type User = {
 
 type ThreadComment = {
   id: number;
-  userId: number;
+  user: User;
   content: string;
   date: Date | string;
 };

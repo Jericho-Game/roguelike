@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Tab as UITab } from '@headlessui/react';
 
-import ForumTabs from '../components/ForumTabs';
 import Tab from '../components/Tab';
+import ForumCategories from '../components/ForumCategories';
 import ForumThread from '../components/ForumThread';
 
 import { ForumState, getThread, getThreads } from '../store/forum';
@@ -53,7 +53,7 @@ export default function ForumPage() {
               as={UITab}
               key={category}
               variant="secondary"
-              className="capitalize"
+              className="capitalize py-2"
             >
               {category}
             </Tab>
@@ -62,7 +62,7 @@ export default function ForumPage() {
       )}
       {(current)
         ? <ForumThread {...current} />
-        : <ForumTabs data={data ?? []} categories={categories} />}
+        : <ForumCategories data={data ?? []} categories={categories} />}
     </UITab.Group>
   );
 }

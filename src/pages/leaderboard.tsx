@@ -1,9 +1,9 @@
 import LeaderboardTable from '../components/LeaderboardTable';
 
-import useDataFetch from '../hooks/useDataFetch';
+import useDataMock from '../_demodata/useDataMock';
 
 export default function LeaderboardPage() {
-  const { data } = useDataFetch<User[]>('/leaderboard');
+  const { data } = useDataMock<User[]>('users');
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-2">

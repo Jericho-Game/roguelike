@@ -21,7 +21,7 @@ export default function Tabu<T extends ElementType = 'button'>({
     <Component
       role="tab"
       className={classnames(
-        'text-base font-medium border-b-2 py-2',
+        'text-base font-medium border-b-2',
         className, // additional classnames
         {
           'hover:border-primary-hover hover:text-gray-900': variant === 'primary', // hover state
