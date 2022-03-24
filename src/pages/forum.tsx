@@ -16,7 +16,7 @@ const categories = ['main', 'questions', 'versions'];
 export default function ForumPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data, current } = useSelector((state: { forum: ForumState }) => state.forum);
+  const { data = [], current } = useSelector((state: { forum: ForumState }) => state.forum);
 
   useEffect(() => {
     if (!data) {
@@ -61,8 +61,8 @@ export default function ForumPage() {
         </UITab.List>
       )}
       {(current)
-        ? <ForumThread {...current} />
-        : <ForumCategories data={data ?? []} categories={categories} />}
+        ? <ForumThread content={current.content} comments={current.comments} />
+        : <ForumCategories data={data} categories={categories} />}
     </UITab.Group>
   );
 }

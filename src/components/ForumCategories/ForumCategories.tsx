@@ -5,7 +5,7 @@ import { Tab as UITab } from '@headlessui/react';
 import normalizeDate from '../../utils/normalizeDate';
 
 type ForumTabsProps = {
-  data: Thread[];
+  data: Nullable<Thread[]>;
   categories: string[];
 };
 
@@ -15,7 +15,7 @@ export default function ForumCategories({ data, categories }: ForumTabsProps) {
       {categories.map((key) => (
         <UITab.Panel key={`tab-${key}`} className="max-w-7xl mx-auto px-4 sm:px-6">
           <ul>
-            {data.filter(({ category }) => category === key).map((thread) => (
+            {data?.filter(({ category }) => category === key).map((thread) => (
               <li key={thread.id} className="relative py-3 rounded-md hover:bg-coolGray-100">
                 <Link to={`/forum/${thread.id}`} className="text-left" type="button">
                   <h3 className="text-sm font-medium leading-5">{thread.title}</h3>
