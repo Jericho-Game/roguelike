@@ -14,7 +14,19 @@ export default function ForumThread({ content, comments }: ForumThreadProps) {
           {content}
         </section>
         <section className="mb-5">
-          {comments.map((comment) => <Comment key={comment.id} {...comment} />)}
+          {comments.map(({
+            id,
+            user,
+            content: commentContent,
+            date,
+          }) => (
+            <Comment
+              key={id}
+              user={user}
+              content={commentContent}
+              date={date}
+            />
+          ))}
         </section>
         <CommentForm />
       </div>

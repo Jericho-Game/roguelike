@@ -3,7 +3,9 @@ import { format } from 'date-fns';
 import Avatar from '../../../Avatar';
 import normalizeDate from '../../../../utils/normalizeDate';
 
-export default function Comment(data: ThreadComment) {
+type CommentProps = Omit<ThreadComment, 'id'>;
+
+export default function Comment(data: CommentProps) {
   const { content, user, date } = data;
   return (
     <div
