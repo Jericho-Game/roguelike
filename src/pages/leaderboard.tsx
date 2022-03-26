@@ -1,11 +1,11 @@
 import { useErrorHandler } from 'react-error-boundary';
 import LeaderboardTable from '../components/LeaderboardTable';
 
-import useDataFetch from '../hooks/useDataFetch';
+import useDataMock from '../_demodata/useDataMock';
 
 export default function LeaderboardPage() {
   const handleError = useErrorHandler();
-  const { data, error } = useDataFetch<User>('/leaderboard');
+  const { data, error } = useDataMock<User[]>('users');
   if (error) handleError(new Error(`${error}`));
   return (
     <>

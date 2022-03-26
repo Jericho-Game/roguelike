@@ -5,8 +5,6 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { Toaster } from 'react-hot-toast';
-
 import IndexPage from '../../pages/index';
 import Page404 from '../../pages/404';
 import ForumPage from '../../pages/forum';
@@ -31,6 +29,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<IndexPage />} />
             <Route path="/forum" element={<ForumPage />} />
+            <Route path="/forum/:id" element={<ForumPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
@@ -39,7 +38,6 @@ export default function App() {
           </Routes>
         </ErrorBoundaryWrapper>
       </Layout>
-      <Toaster />
     </Router>
   );
 }

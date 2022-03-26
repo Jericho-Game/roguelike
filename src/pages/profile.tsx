@@ -156,7 +156,7 @@ export default function ProfilePage() {
     >
       <h1
         className={classnames(
-          'max-w-7xl mx-auto px-4 sm:px-6 w-full pb-16',
+          'max-w-7xl mx-auto px-4 sm:px-6 w-full pb-2',
         )}
       >
         Profile

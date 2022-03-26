@@ -16,3 +16,19 @@ type User = {
   phone: string;
   score?: number;
 };
+
+type ThreadComment = {
+  id: number;
+  user: User;
+  content: string;
+  date: Date | string;
+};
+
+type Thread = {
+  id: number;
+  date: Date | string;
+  title: string;
+  content: string;
+  category: 'main' | 'questions' | 'versions';
+  comments: ThreadComment[];
+};

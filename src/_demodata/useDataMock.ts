@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react';
 
-import users from '../_demodata/users';
+import forum from './forum';
+import users from './users';
 
 type FetchState<T> = {
   loading: boolean;
-  data?: T[];
+  data?: T;
   error: boolean | string;
 };
 
-const demoData: Record<string, unknown[]> = {
-  '/leaderboard': users,
+const demoData: Record<string, unknown> = {
+  users,
+  forum,
 };
 
-export default function useDataFetch<T>(url: string) {
+export default function useDataMock<T>(url: string) {
   const [state, setState] = useState<FetchState<T>>({
     loading: true,
     error: false,
     data: undefined,
   });
+
   const fetcher = () => new Promise((resolve) => {
     const data = demoData[url];
-    const isSuccess = Math.random() < 0.5;
+    const isSuccess = Math.random() < 0.8;
     if (isSuccess) {
       resolve(data);
     }
     throw new Error('Empty Response');
   })
-    .then((data: T[]) => setState({
+    .then((data: T) => setState({
       loading: false,
       error: false,
       data,
