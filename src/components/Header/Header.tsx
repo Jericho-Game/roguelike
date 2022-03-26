@@ -38,15 +38,16 @@ export default function Header() {
             </Button>
           </div>
           <nav className="hidden md:flex items-center space-x-10">
-            <Tab className="py-4" as={Link} to="/forum" active={pathname === '/forum'}>Forum</Tab>
-            <Tab className="py-4" as={Link} to="/leaderboard" active={pathname === '/leaderboard'}>Leaderboard</Tab>
+            <Tab as={Link} variant="primary" to="/forum" active={pathname === '/forum'} className="py-4">Forum</Tab>
+            <Tab as={Link} variant="primary" to="/leaderboard" active={pathname === '/leaderboard'} className="py-4">Leaderboard</Tab>
             {user ? (
               <Popover className="relative">
                 {({ open, close }) => (
                   <>
                     <Tab
                       as={Popover.Button}
-                      className="flex items-center"
+                      variant="primary"
+                      className="flex items-center py-2"
                       active={open || pathname === '/profile'}
                     >
                       <Avatar
@@ -79,6 +80,7 @@ export default function Header() {
                           <div className="relative grid gap-6 bg-white px-5 py-6">
                             <Tab
                               as={Link}
+                              variant="primary"
                               to="/profile"
                               className="w-full"
                               active={pathname === '/profile'}
@@ -88,6 +90,7 @@ export default function Header() {
                             </Tab>
                             <Tab
                               as={Link}
+                              variant="primary"
                               to="/signin"
                               className="w-full"
                               onClick={() => {
