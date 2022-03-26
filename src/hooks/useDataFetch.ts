@@ -18,13 +18,13 @@ export default function useDataFetch<T>(url: string) {
     error: false,
     data: undefined,
   });
-  const fetcher = () => new Promise((resolve, reject) => {
+  const fetcher = () => new Promise((resolve) => {
     const data = demoData[url];
     const isSuccess = Math.random() < 0.5;
     if (isSuccess) {
       resolve(data);
     }
-    reject();
+    throw new Error('Empty Response');
   })
     .then((data: T[]) => setState({
       loading: false,
