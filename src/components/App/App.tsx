@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { Toaster } from 'react-hot-toast';
+
 import IndexPage from '../../pages/index';
 import Page404 from '../../pages/404';
 import ForumPage from '../../pages/forum';
@@ -14,7 +16,7 @@ import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
 import { storeUser } from '../../store/user';
-import ErrorBoundaryWrapper from '../ErrorBoundaryWrapper/ErrorBoundaryWrapper';
+import ErrorBoundaryWrapper from '../ErrorBoundaryWrapper';
 import Layout from '../Layout';
 
 export default function App() {
@@ -38,6 +40,7 @@ export default function App() {
           </Routes>
         </ErrorBoundaryWrapper>
       </Layout>
+      <Toaster />
     </Router>
   );
 }

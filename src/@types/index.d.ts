@@ -1,3 +1,6 @@
+declare module '*.gif';
+declare module '*.svg';
+
 type Nullable<T> = T | null;
 
 type Action<T> = {

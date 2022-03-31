@@ -5,7 +5,7 @@ import useDataMock from '../_demodata/useDataMock';
 
 export default function LeaderboardPage() {
   const handleError = useErrorHandler();
-  const { data, error } = useDataMock<User[]>('users');
+  const { data = [], error } = useDataMock<User[]>('users');
   if (error) handleError(new Error(`${error}`));
   return (
     <>
@@ -13,7 +13,7 @@ export default function LeaderboardPage() {
         <h1>Leaderboard</h1>
       </div>
       <div className="bg-gray-100">
-        <LeaderboardTable users={data ?? []} />
+        <LeaderboardTable users={data} />
       </div>
     </>
   );

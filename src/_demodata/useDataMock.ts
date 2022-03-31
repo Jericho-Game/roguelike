@@ -23,7 +23,7 @@ export default function useDataMock<T>(url: string) {
 
   const fetcher = () => new Promise((resolve) => {
     const data = demoData[url];
-    const isSuccess = Math.random() < 0.8;
+    const isSuccess = Math.random() < 0.4;
     if (isSuccess) {
       resolve(data);
     }

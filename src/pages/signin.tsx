@@ -27,7 +27,7 @@ export default function SignInPage() {
     if (user && !error) {
       navigate('/');
     } else if (error) {
-      setNotification(error);
+      setNotification(error.message);
     }
   }, [user, error, navigate]);
 

@@ -7,7 +7,7 @@ export default function Layout({ children, className }: PropsWithChildren<{ clas
   return (
     <>
       <Header />
-      <main className={classnames('mx-auto h-full w-full grow-q grid', className)}>
+      <main className={classnames('mx-auto h-full w-full grow-q', className)}>
         {children}
       </main>
     </>
