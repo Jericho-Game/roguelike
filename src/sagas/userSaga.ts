@@ -26,7 +26,7 @@ function* signUpWorker(action: UserAction) {
 
     yield put(success({ data }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }
@@ -41,7 +41,7 @@ function* signInWorker(action: UserAction) {
 
     yield put(success({ data }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }
@@ -55,7 +55,7 @@ function* storeUserWorker() {
     data.avatar = `https://ya-praktikum.tech/api/v2/resources${data.avatar}`;
     yield put(success({ data }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }
@@ -68,7 +68,7 @@ function* signOutWorker() {
     yield call([authService, authService.signOut]);
     yield put(success({ data: null }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }
@@ -81,7 +81,7 @@ function* changeProfileWorker(action: UserAction) {
     const { data } = yield call([userService, userService.changeProfile], action.payload);
     yield put(success({ data }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }

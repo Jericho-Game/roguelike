@@ -1,9 +1,14 @@
+declare module '*.gif';
+declare module '*.svg';
+
 type Nullable<T> = T | null;
 
 type Action<T> = {
   type: string;
   payload: T;
 };
+
+type Reducer<T> = (state: T, action: Action<T>) => T;
 
 type User = {
   id?: number;

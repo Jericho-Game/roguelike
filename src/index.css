@@ -14,8 +14,17 @@ body {
   @apply flex flex-col h-full
 }
 
+h1,
+h2 {
+  @apply leading-tight font-bold text-primary-normal;
+}
+
 h1 {
-  @apply text-5xl leading-tight font-bold text-primary-normal;
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-2xl;
 }
 
 .menu-link-xs {

@@ -1,34 +1,40 @@
-import { createReducer } from '@reduxjs/toolkit';
 import { createRoutine } from 'redux-saga-routines';
 
 export type ForumState = {
   data: Nullable<Thread[]>;
   current: Nullable<Thread>;
-  error?: string;
+  error: Nullable<Error>;
 };
 
 const initialState: ForumState = {
   data: null,
   current: null,
+  error: null,
 };
 
 export const getThreads = createRoutine('forum/GET_THREADS');
 export const getThread = createRoutine('user/GET_THREAD');
 
-const forumReducer = createReducer(initialState, {
-  [getThreads.SUCCESS]: (state, action) => {
-    const { data } = action.payload;
-    return {
-      ...state,
-      data,
-      current: null,
-      error: undefined,
-    };
-  },
-  [getThread.SUCCESS]: (state, action) => {
-    const { current } = action.payload;
-    return { ...state, current, error: undefined };
-  },
-});
+const forumReducer: Reducer<ForumState> = (
+  state = initialState,
+  { type, payload } = { type: '', payload: initialState },
+) => {
+  switch (type) {
+    case getThreads.SUCCESS:
+      state.data = payload.data;
+      return state;
+    case getThreads.FAILURE:
+      state.error = payload.error;
+      return state;
+    case getThread.SUCCESS:
+      state.current = payload.current;
+      return state;
+    case getThread.FAILURE:
+      state.error = payload.error;
+      return state;
+    default:
+      return state;
+  }
+};
 
 export default forumReducer;

@@ -20,7 +20,7 @@ function* getThreadsWorker() {
     const data = forumData;
     yield put(success({ data }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }
@@ -36,7 +36,7 @@ function* getThreadWorker(action: ForumAction<number | null>) {
 
     yield put(success({ current }));
   } catch (error) {
-    yield put(failure(error.message));
+    yield put(failure({ error }));
   } finally {
     yield put(fulfill());
   }

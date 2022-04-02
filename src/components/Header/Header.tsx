@@ -24,6 +24,7 @@ export default function Header() {
   const { pathname } = useLocation();
 
   const { data: user } = useSelector((state: { user: UserState }) => state.user);
+
   return (
     <Popover as="header" className="bg-white w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -38,8 +39,24 @@ export default function Header() {
             </Button>
           </div>
           <nav className="hidden md:flex items-center space-x-10">
-            <Tab as={Link} variant="primary" to="/forum" active={pathname === '/forum'} className="py-4">Forum</Tab>
-            <Tab as={Link} variant="primary" to="/leaderboard" active={pathname === '/leaderboard'} className="py-4">Leaderboard</Tab>
+            <Tab
+              as={Link}
+              to="/forum"
+              className="py-4"
+              variant="primary"
+              active={pathname.includes('/forum')}
+            >
+              Forum
+            </Tab>
+            <Tab
+              as={Link}
+              className="py-4"
+              variant="primary"
+              to="/leaderboard"
+              active={pathname.includes('/leaderboard')}
+            >
+              Leaderboard
+            </Tab>
             {user ? (
               <Popover className="relative">
                 {({ open, close }) => (

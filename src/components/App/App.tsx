@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import Header from '../Header';
 import IndexPage from '../../pages/index';
 import Page404 from '../../pages/404';
 import ForumPage from '../../pages/forum';
@@ -15,6 +14,8 @@ import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
 import { storeUser } from '../../store/user';
+import ErrorBoundaryWrapper from '../ErrorBoundaryWrapper';
+import Layout from '../Layout';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -23,19 +24,20 @@ export default function App() {
   }
   return (
     <Router>
-      <Header />
-      <main className="mx-auto h-full w-full grow-q">
-        <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/forum" element={<ForumPage />} />
-          <Route path="/forum/:id" element={<ForumPage />} />
-          <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </main>
+      <Layout>
+        <ErrorBoundaryWrapper>
+          <Routes>
+            <Route path="/" element={<IndexPage />} />
+            <Route path="/forum" element={<ForumPage />} />
+            <Route path="/forum/:id" element={<ForumPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </ErrorBoundaryWrapper>
+      </Layout>
     </Router>
   );
 }

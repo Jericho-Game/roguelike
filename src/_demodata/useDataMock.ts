@@ -21,13 +21,13 @@ export default function useDataMock<T>(url: string) {
     data: undefined,
   });
 
-  const fetcher = () => new Promise((resolve, reject) => {
+  const fetcher = () => new Promise((resolve) => {
     const data = demoData[url];
-    const isSuccess = Math.random() < 0.8;
+    const isSuccess = Math.random() < 0.4;
     if (isSuccess) {
       resolve(data);
     }
-    reject();
+    throw new Error('Empty Response');
   })
     .then((data: T) => setState({
       loading: false,
