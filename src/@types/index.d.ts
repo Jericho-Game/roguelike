@@ -8,6 +8,8 @@ type Action<T> = {
   payload: T;
 };
 
+type Reducer<T> = (state: T, action: Action<T>) => T;
+
 type User = {
   id?: number;
   avatar?: string;

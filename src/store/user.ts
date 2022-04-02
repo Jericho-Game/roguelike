@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign, @typescript-eslint/default-param-last */
 import { createRoutine } from 'redux-saga-routines';
 
 export type UserState = {
@@ -17,7 +16,10 @@ export const storeUser = createRoutine('user/STORE_USER');
 export const signOut = createRoutine('user/SIGN_OUT');
 export const changeProfile = createRoutine('user/CHANGE_PROFILE');
 
-const userReducer = (state = initialState, { type, payload }: Action<UserState>) => {
+const userReducer: Reducer<UserState> = (
+  state = initialState,
+  { type, payload } = { type: '', payload: initialState },
+) => {
   switch (type) {
     case signUp.SUCCESS:
       state.data = payload.data;

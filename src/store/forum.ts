@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign, @typescript-eslint/default-param-last */
 import { createRoutine } from 'redux-saga-routines';
 
 export type ForumState = {
@@ -16,7 +15,10 @@ const initialState: ForumState = {
 export const getThreads = createRoutine('forum/GET_THREADS');
 export const getThread = createRoutine('user/GET_THREAD');
 
-const forumReducer = (state = initialState, { type, payload }: Action<ForumState>) => {
+const forumReducer: Reducer<ForumState> = (
+  state = initialState,
+  { type, payload } = { type: '', payload: initialState },
+) => {
   switch (type) {
     case getThreads.SUCCESS:
       state.data = payload.data;
