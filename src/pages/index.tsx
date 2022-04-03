@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react';
-
+import { useRef, useEffect } from 'react';
 import GameManager from '../core/gameManager';
 
-export default function Home() {
+export default function IndexPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -13,5 +12,9 @@ export default function Home() {
     }
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div className="w-full aspect-video">
+      <canvas ref={canvasRef} />
+    </div>
+  );
 }

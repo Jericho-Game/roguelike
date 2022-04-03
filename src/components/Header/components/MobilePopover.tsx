@@ -10,7 +10,7 @@ import Button from '../../Button';
 import Tab from '../../Tab';
 
 type HeaderProps = {
-  user?: User;
+  user: Nullable<User>;
 };
 
 export default function MobilePopover({ user }: HeaderProps) {
@@ -42,9 +42,9 @@ export default function MobilePopover({ user }: HeaderProps) {
             </div>
             <div className="mt-6 py-6 px-5">
               <nav className="grid gap-y-8">
-                <Tab as={Link} to="/forum" className="w-full" onClick={() => close()}>Forum</Tab>
-                <Tab as={Link} to="/leaderboard" className="w-full" onClick={() => close()}>Leaderboard</Tab>
-                {user && <Tab as={Link} to="/profile" className="w-full" onClick={() => close()}>Profile</Tab>}
+                <Tab as={Link} variant="primary" to="/forum" className="w-full" onClick={() => close()}>Forum</Tab>
+                <Tab as={Link} variant="primary" to="/leaderboard" className="w-full" onClick={() => close()}>Leaderboard</Tab>
+                {user && <Tab as={Link} variant="primary" to="/profile" className="w-full" onClick={() => close()}>Profile</Tab>}
               </nav>
             </div>
             <div className="py-6 px-5 space-y-6">
