@@ -14,7 +14,7 @@ export default function IndexPage() {
 
   return (
     <div className="w-full aspect-video">
-      <canvas ref={canvasRef} />
+      <canvas className="mx-auto" ref={canvasRef} />
     </div>
   );
 }
