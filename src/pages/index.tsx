@@ -1,17 +1,15 @@
 import { useEffect, useRef } from 'react';
 
-import CanvasContainer from '../core/graphics';
-import Grid from '../core/entities/grid';
+import GameManager from '../core/gameManager';
 
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef?.current) {
-      const canvas = new CanvasContainer(canvasRef.current);
-      const grid = new Grid(canvas);
+      const gameManager = new GameManager(canvasRef.current);
 
-      grid.generate();
+      gameManager.run();
     }
   }, []);
 

@@ -4,7 +4,7 @@ const BACKGROUND_COLOR = 'black';
 
 const CELL_HEIGHT = 20;
 const CELL_WIDTH = 20;
-const CELL_COLOR = 'black';
+const CELL_COLOR = 'white';
 
 const PLAYER_WIDTH = CELL_WIDTH;
 const PLAYER_HEIGHT = CELL_HEIGHT;

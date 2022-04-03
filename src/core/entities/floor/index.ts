@@ -1,19 +1,8 @@
-import {
-  RectMode, FLOOR_TYPE, CELL_WIDTH, CELL_HEIGHT,
-} from '../../constants';
-import AbstractEntity from '../abstract';
+import { RectMode, FLOOR_TYPE } from '../../constants';
+import AbstractEntity from '../abstract/entity';
 
 export default class Floor extends AbstractEntity {
   type = FLOOR_TYPE;
 
-  draw() {
-    this.canvas?.rect(
-      this.position.x,
-      this.position.y,
-      CELL_WIDTH,
-      CELL_HEIGHT,
-      RectMode.Stroke,
-      this.color,
-    );
-  }
+  mode = RectMode.Stroke;
 }

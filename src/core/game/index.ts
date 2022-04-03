@@ -1,99 +1,90 @@
-import roomsMock from '../../mocks/rooms';
-import CanvasContainer from '../../graphics';
-import Player from '../player';
-import Enemy from '../enemy';
-import Floor from '../floor';
-import Wall from '../wall';
-import Room from '../room';
-import AbstractEntity from '../abstract';
+import roomsMock from '../mocks/rooms';
+import CanvasContainer from '../graphics';
+import Player from '../entities/player';
+import Enemy from '../entities/enemy';
+import Floor from '../entities/floor';
+import Wall from '../entities/wall';
+import AbstractEntity from '../entities/abstract/entity';
 
 import {
   CELL_HEIGHT,
   CELL_WIDTH,
-  ENEMY_TYPE,
-  PLAYER_TYPE,
   GAME_START_TYPE,
   GAME_ON_TYPE,
   GAME_SUCCESS_END_TYPE,
   GAME_FAILED_END_TYPE,
   RectMode,
-} from '../../constants';
+  ENEMY_TYPE,
+  FLOOR_TYPE,
+  PLAYER_TYPE,
+} from '../constants';
+import Actor from '../entities/actor';
 
-export default class Grid {
-  type = GAME_START_TYPE;
+type Position = {
+  x: number,
+  y: number
+};
 
-  level = 1;
+export default class Game {
+  private type = GAME_START_TYPE;
 
-  rooms = roomsMock;
+  private generatedLevel = new Map<string, AbstractEntity | Actor>();
 
-  generatedLevel: Map<string, AbstractEntity> = new Map();
+  private canvas: CanvasContainer | null = null;
 
-  canvas: CanvasContainer | null = null;
+  private player: Player | null = null;
 
-  player: Player | null = null;
+  private enemy: Enemy | null = null;
 
-  enemy: Enemy | null = null;
+  private rooms = roomsMock;
 
   constructor(canvas: CanvasContainer) {
     this.canvas = canvas;
     this.player = new Player(
-      canvas,
       this.update.bind(this),
-      this.getLevelElement.bind(this),
-      this.cleanLevelElement.bind(this),
+      this.checkElement.bind(this),
     );
     this.enemy = new Enemy(
-      canvas,
       this.update.bind(this),
-      this.cleanLevelElement.bind(this),
+      { x: 200, y: 600 },
     );
   }
 
   get isEnemiesDied() {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [, entity] of this.generatedLevel) {
-      if (entity.type === ENEMY_TYPE) {
-        return false;
-      }
+    if (this.enemy) {
+      return this.enemy.health <= 0;
     }
 
     return true;
   }
 
   get isPlayerDied() {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [, entity] of this.generatedLevel) {
-      if (entity.type === PLAYER_TYPE) {
-        return false;
-      }
+    if (this.player) {
+      return this.player.health <= 0;
     }
 
     return true;
   }
 
-  getLevelElement(x: number, y: number) {
+  getElement({ x, y }: Position) {
     return this.generatedLevel.get(`${y} - ${x}`);
   }
 
-  cleanLevelElement(position: Record<string, number>) {
-    if (!this.canvas) {
-      return;
-    }
-
+  cleanLevelElement(position: Position) {
     const { x, y } = position;
-    const floor = new Floor(this.canvas, () => {}, () => {}, { x, y });
+    const floor = new Floor(() => {}, { x, y });
 
     this.generatedLevel.set(`${y} - ${x}`, floor);
-
-    this.update();
   }
 
-  generateRooms(context: CanvasContainer) {
-    if (context) {
-      this.rooms.forEach((room: Room) => {
-        room.draw(context, this.generatedLevel);
-      });
+  checkElement(entity: Actor, position: Position) {
+    const nextCell = this.getElement?.(position);
+
+    if (nextCell?.type === ENEMY_TYPE || nextCell?.type === PLAYER_TYPE) {
+      entity.attack(nextCell as Actor);
     }
+
+    return nextCell?.type === FLOOR_TYPE;
   }
 
   generateStartScreen() {
@@ -159,7 +150,7 @@ export default class Grid {
     );
   }
 
-  update() {
+  update(entity?: Actor, prevPositions?: Position) {
     if (!this.canvas || !this.player || !this.enemy) {
       return;
     }
@@ -173,7 +164,25 @@ export default class Grid {
     this.canvas.clear();
 
     if (this.type === GAME_ON_TYPE) {
-      this.generatedLevel.forEach((cell) => cell.draw());
+      if (entity && prevPositions) {
+        this.cleanLevelElement(prevPositions);
+
+        this.generatedLevel.set(
+          `${entity.position.y} - ${entity.position.x}`,
+          entity,
+        );
+      }
+
+      this.generatedLevel.forEach((levelEntity) => {
+        this.canvas?.rect(
+          levelEntity.position.x,
+          levelEntity.position.y,
+          levelEntity.width,
+          levelEntity.height,
+          levelEntity.rectMode,
+          levelEntity.color,
+        );
+      });
     } else if (this.type === GAME_START_TYPE) {
       this.generateStartScreen();
     } else if (this.type === GAME_SUCCESS_END_TYPE) {
@@ -188,22 +197,18 @@ export default class Grid {
       return;
     }
 
-    if (this.level < 5) {
-      this.level += 1;
-    }
-
     this.canvas.clear();
     this.generatedLevel.clear();
 
     for (let i = 0; i < this.canvas.height; i += CELL_HEIGHT) {
       for (let k = 0; k < this.canvas.height; k += CELL_WIDTH) {
-        const wall = new Wall(this.canvas, () => {}, () => {}, { x: k, y: i });
+        const wall = new Wall(() => {}, { x: k, y: i });
 
         this.generatedLevel.set(`${i} - ${k}`, wall);
       }
     }
 
-    this.generateRooms(this.canvas);
+    this.rooms.forEach((room) => room.generate(this.generatedLevel));
 
     this.generatedLevel.set(
       `${this.player.position.y} - ${this.player.position.x}`,
