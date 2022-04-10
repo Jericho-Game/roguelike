@@ -1,6 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 const common = require('./webpack.common.js');
 
@@ -13,6 +14,12 @@ module.exports = merge(common, {
     }),
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"],
+    }),
+    new CopyPlugin({
+      patterns: [{
+        from: 'src/service-worker',
+        to: './',
+      }]
     }),
   ],
   devServer: {
