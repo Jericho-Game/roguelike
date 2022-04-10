@@ -4,6 +4,7 @@ import Enemy from '../enemy';
 import Player from '../player';
 import Wall from '../wall';
 import GameObject from '../abstract/gameObject';
+import { Position } from '../../types';
 
 export default class Room extends GameObject {
   width = 0;

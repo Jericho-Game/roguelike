@@ -1,4 +1,5 @@
 import { CELL_WIDTH, CELL_HEIGHT } from '../../../constants';
+import { Position } from '../../../types';
 
 export default abstract class GameObject {
   #position: Position = {

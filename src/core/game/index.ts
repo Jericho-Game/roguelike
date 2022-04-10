@@ -1,5 +1,5 @@
 import roomsMock from '../mocks/rooms';
-import CanvasContainer from '../graphics';
+import CanvasContainer from '../renderer';
 import Player from '../entities/player';
 import Enemy from '../entities/enemy';
 import Floor from '../entities/floor';
@@ -17,13 +17,10 @@ import {
   ENEMY_TYPE,
   FLOOR_TYPE,
   PLAYER_TYPE,
+  Drawing,
 } from '../constants';
 import Actor from '../entities/actor';
-
-type Position = {
-  x: number,
-  y: number
-};
+import { Position } from '../types';
 
 export default class Game {
   private type = GAME_START_TYPE;
@@ -51,23 +48,22 @@ export default class Game {
   }
 
   get isEnemiesDied() {
-    if (this.enemy) {
-      return this.enemy.health <= 0;
-    }
-
-    return true;
+    return (this.enemy as Enemy).health <= 0;
   }
 
   get isPlayerDied() {
-    if (this.player) {
-      return this.player.health <= 0;
-    }
-
-    return true;
+    return (this.player as Player).health <= 0;
   }
 
   getElement({ x, y }: Position) {
     return this.generatedLevel.get(`${y} - ${x}`);
+  }
+
+  cleanLevel() {
+    this.player?.destroy();
+    this.player = null;
+    this.enemy = null;
+    this.generatedLevel = new Map();
   }
 
   cleanLevelElement(position: Position) {
@@ -89,19 +85,19 @@ export default class Game {
 
   generateStartScreen() {
     const eventName = 'mouseup';
-    const buttonText = 'Start';
-    const [buttonX, buttonY] = [300, 300];
-    const [buttonWidth, buttonHeight] = [200, 100];
-    const buttonColor = 'black';
+    const text = 'Start';
+    const [x, y] = [300, 300];
+    const [width, height] = [200, 100];
+    const color = 'black';
 
     const handler = (event: MouseEvent) => {
       const { offsetX, offsetY } = event;
 
       if (
-        offsetX >= buttonX
-        && offsetX <= (buttonX + buttonWidth)
-        && offsetY >= buttonY
-        && offsetY <= (buttonY + buttonHeight)
+        offsetX >= x
+        && offsetX <= (x + width)
+        && offsetY >= y
+        && offsetY <= (y + height)
       ) {
         this.type = GAME_ON_TYPE;
 
@@ -111,43 +107,50 @@ export default class Game {
     };
 
     this.canvas?.canvasElement?.addEventListener(eventName, handler);
-    this.canvas?.drawButton(
-      buttonText,
-      buttonX,
-      buttonY,
-      buttonWidth,
-      buttonHeight,
-      RectMode.Fill,
-      buttonColor,
-    );
+    this.canvas?.update({
+      x,
+      y,
+      width,
+      height,
+      text,
+      color,
+      mode: RectMode.Fill,
+      type: Drawing.Button,
+    });
   }
 
   generateSuccessScreen() {
-    const buttonText = 'You are win! =)';
-    const [buttonX, buttonY] = [0, 0];
-    const [buttonWidth, buttonHeight] = [800, 800];
-    const buttonColor = 'green';
+    const text = 'You are win! =)';
+    const [x, y] = [0, 0];
+    const [width, height] = [800, 800];
+    const color = 'green';
 
-    this.canvas?.drawButton(
-      buttonText,
-      buttonX,
-      buttonY,
-      buttonWidth,
-      buttonHeight,
-      RectMode.Fill,
-      buttonColor,
-    );
+    this.cleanLevel();
+
+    this.canvas?.update({
+      x,
+      y,
+      text,
+      width,
+      height,
+      mode: RectMode.Fill,
+      color,
+      type: Drawing.Button,
+    });
   }
 
   generateFailedScreen() {
-    this.canvas?.rect(
-      300,
-      300,
-      100,
-      100,
-      RectMode.Fill,
-      'red',
-    );
+    this.cleanLevel();
+
+    this.canvas?.update({
+      x: 300,
+      y: 300,
+      width: 100,
+      height: 100,
+      color: 'red',
+      mode: RectMode.Fill,
+      type: Drawing.Button,
+    });
   }
 
   update(entity?: Actor, prevPositions?: Position) {
@@ -161,7 +164,9 @@ export default class Game {
       this.type = GAME_FAILED_END_TYPE;
     }
 
-    this.canvas.clear();
+    this.canvas.update({
+      type: Drawing.Clear,
+    });
 
     if (this.type === GAME_ON_TYPE) {
       if (entity && prevPositions) {
@@ -174,14 +179,15 @@ export default class Game {
       }
 
       this.generatedLevel.forEach((levelEntity) => {
-        this.canvas?.rect(
-          levelEntity.position.x,
-          levelEntity.position.y,
-          levelEntity.width,
-          levelEntity.height,
-          levelEntity.rectMode,
-          levelEntity.color,
-        );
+        this.canvas?.update({
+          x: levelEntity.position.x,
+          y: levelEntity.position.y,
+          width: levelEntity.width,
+          height: levelEntity.height,
+          mode: levelEntity.rectMode,
+          color: levelEntity.color,
+          type: Drawing.Cell,
+        });
       });
     } else if (this.type === GAME_START_TYPE) {
       this.generateStartScreen();
@@ -197,7 +203,6 @@ export default class Game {
       return;
     }
 
-    this.canvas.clear();
     this.generatedLevel.clear();
 
     for (let i = 0; i < this.canvas.height; i += CELL_HEIGHT) {

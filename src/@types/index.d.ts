@@ -37,8 +37,3 @@ type Thread = {
   category: 'main' | 'questions' | 'versions';
   comments: ThreadComment[];
 };
-
-type Position = {
-  x: number;
-  y: number;
-};

@@ -5,11 +5,11 @@ import {
   EMPTY_TYPE,
   RectMode,
 } from '../../../constants';
-import Position from '../gameObject';
+import GameObject from '../gameObject';
 
 type Update = ((entity: AbstractEntity, prevPositions: Record<string, number>) => void);
 
-export default abstract class AbstractEntity extends Position {
+export default abstract class AbstractEntity extends GameObject {
   protected update: Update | null = null;
 
   type = EMPTY_TYPE;

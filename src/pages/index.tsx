@@ -1,20 +1,20 @@
-import { useRef, useEffect } from 'react';
-import GameManager from '../core/gameManager';
+import { RefreshIcon } from '@heroicons/react/solid';
+import Button from '../components/Button';
+import useGame from '../hooks/game';
 
 export default function IndexPage() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    if (canvasRef?.current) {
-      const gameManager = new GameManager(canvasRef.current);
-
-      gameManager.run();
-    }
-  }, []);
+  const { canvasRef, restart } = useGame();
 
   return (
     <div className="w-full aspect-video">
-      <canvas className="mx-auto" ref={canvasRef} />
+      <div className="flex flex-row justify-center">
+        <canvas ref={canvasRef} />
+
+        <Button className="ml-4 self-start" variant="secondary" onClick={restart}>
+          <RefreshIcon className="h-6 w-6" aria-hidden="true" />
+          <span>Restart</span>
+        </Button>
+      </div>
     </div>
   );
 }

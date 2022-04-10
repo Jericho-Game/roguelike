@@ -27,10 +27,15 @@ const GAME_ON_TYPE = 'GAME_ON_TYPE';
 const GAME_SUCCESS_END_TYPE = 'GAME_SUCCESS_END_TYPE';
 const GAME_FAILED_END_TYPE = 'GAME_FAILED_END_TYPE';
 
-// Enum для способов рисования
 const enum RectMode {
   Fill,
   Stroke,
+}
+
+const enum Drawing {
+  Button,
+  Cell,
+  Clear,
 }
 
 export {
@@ -57,4 +62,5 @@ export {
   GAME_SUCCESS_END_TYPE,
   GAME_FAILED_END_TYPE,
   RectMode,
+  Drawing,
 };

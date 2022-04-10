@@ -4,15 +4,15 @@ import {
   PLAYER_WIDTH,
   PLAYER_HEIGHT,
 } from '../../constants';
+import { Controls, Position } from '../../types';
 import AbstractEntity from '../abstract/entity';
 import Actor from '../actor';
 
-type Controls = {
-  [key: string]: ({ x, y }: Position) => ({ x: number, y: number });
-};
+type RegenerateFn = ((entity: AbstractEntity, prevPositions: Record<string, number>) => void);
 
-type RegenerateFunc = ((entity: AbstractEntity, prevPositions: Record<string, number>) => void);
 export default class Player extends Actor {
+  private moveHandler = (e: KeyboardEvent) => this.move(e);
+
   type = PLAYER_TYPE;
 
   color = PLAYER_COLOR;
@@ -31,7 +31,7 @@ export default class Player extends Actor {
   checkElement: ((entity: AbstractEntity, position: Position) => boolean) | null = null;
 
   constructor(
-    update: RegenerateFunc,
+    update: RegenerateFn,
     checkElement: (entity: AbstractEntity, position: Position) => boolean,
   ) {
     super(update);
@@ -42,7 +42,11 @@ export default class Player extends Actor {
   }
 
   init() {
-    window.addEventListener('keydown', (e) => this.move(e));
+    window.addEventListener('keydown', this.moveHandler);
+  }
+
+  destroy() {
+    window.removeEventListener('keydown', this.moveHandler);
   }
 
   move(event: KeyboardEvent) {
