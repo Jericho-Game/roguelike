@@ -10,21 +10,21 @@ type Controls = {
 };
 
 type Rect = {
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  color: string,
-  mode: RectMode,
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  color: string;
+  mode: RectMode;
 };
 
 type Button = Rect & {
-  text: string,
+  text: string;
 };
 
 type Update = Partial<Rect> & {
-  text?: string,
-  type: Drawing,
+  text?: string;
+  type: Drawing;
 };
 
 export {

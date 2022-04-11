@@ -53,15 +53,11 @@ export default class CanvasContainer {
   }
 
   clear() {
-    if (this.canvasContext) {
-      this.canvasContext.clearRect(0, 0, this.width, this.height);
-    }
+    this.canvasContext?.clearRect(0, 0, this.width, this.height);
   }
 
   clearRect(x: number, y: number, width: number, height: number) {
-    if (this.canvasContext) {
-      this.canvasContext.clearRect(x, y, width, height);
-    }
+    this.canvasContext?.clearRect(x, y, width, height);
   }
 
   update({
