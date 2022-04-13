@@ -92,7 +92,7 @@ export default class Game {
       canvasElement.width / 2 - width / 2,
       canvasElement.height / 2 - height / 2,
     ];
-    const color = 'red';
+    const color = '#5e48e8';
     const textColor = 'white';
 
     const handler = (event: MouseEvent) => {
