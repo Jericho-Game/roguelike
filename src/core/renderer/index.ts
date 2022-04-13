@@ -39,7 +39,7 @@ export default class CanvasContainer {
   }
 
   drawButton({
-    x, y, width, height, mode, text, color,
+    x, y, width, height, mode, text, color, textColor = 'white',
   }: Button) {
     const context = this.canvasContext as CanvasRenderingContext2D;
 
@@ -47,7 +47,7 @@ export default class CanvasContainer {
       x, y, width, height, mode, color,
     });
 
-    context.fillStyle = '#ffffff';
+    context.fillStyle = textColor;
     context.font = 'bold 24px verdana, sans-serif ';
     context.fillText(text, x + (width / 2) - (text.length * 6), y + (height / 2) + 10);
   }
@@ -61,7 +61,7 @@ export default class CanvasContainer {
   }
 
   update({
-    x, y, text, width, height, color, mode, type,
+    x, y, text, textColor, width, height, color, mode, type,
   }: Update) {
     switch (type) {
       case Drawing.Cell:
@@ -71,7 +71,7 @@ export default class CanvasContainer {
         break;
       case Drawing.Button:
         this.drawButton({
-          x, y, width, height, mode, text, color,
+          x, y, width, height, mode, text, textColor, color,
         } as Button);
         break;
       case Drawing.Clear:

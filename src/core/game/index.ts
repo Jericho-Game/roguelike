@@ -86,18 +86,27 @@ export default class Game {
   generateStartScreen() {
     const eventName = 'mouseup';
     const text = 'Start';
-    const [x, y] = [300, 300];
+    const canvasElement = this.canvas?.canvasElement as HTMLCanvasElement;
     const [width, height] = [200, 100];
-    const color = 'black';
+    const [x, y] = [
+      canvasElement.width / 2 - width / 2,
+      canvasElement.height / 2 - height / 2,
+    ];
+    const color = 'red';
+    const textColor = 'white';
 
     const handler = (event: MouseEvent) => {
       const { offsetX, offsetY } = event;
+      const [newX, newY] = [
+        canvasElement.offsetWidth / 2 - width / 2,
+        canvasElement.offsetHeight / 2 - height / 2,
+      ];
 
       if (
-        offsetX >= x
-        && offsetX <= (x + width)
-        && offsetY >= y
-        && offsetY <= (y + height)
+        offsetX >= newX
+        && offsetX <= (newX + width)
+        && offsetY >= newY
+        && offsetY <= (newY + height)
       ) {
         this.type = GAME_ON_TYPE;
 
@@ -113,6 +122,7 @@ export default class Game {
       width,
       height,
       text,
+      textColor,
       color,
       mode: RectMode.Fill,
       type: Drawing.Button,
