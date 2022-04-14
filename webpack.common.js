@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -23,6 +24,7 @@ module.exports = {
               loader: 'file-loader',
             },
           ],
+          exclude: /(icons)/
         },
         {
           test: /\.tsx?$/,
@@ -46,7 +48,15 @@ module.exports = {
         },
       ]
     },
-    plugins: [new HtmlWebpackPlugin({
-      template: 'index.html'
-    })]
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: 'index.html'
+      }),
+      new CopyPlugin({
+        patterns: [{
+          from: 'src/assets/images/icons',
+          to: './assets/image',
+        }]
+      }),
+    ]
   };
