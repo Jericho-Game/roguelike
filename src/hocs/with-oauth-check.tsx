@@ -1,10 +1,10 @@
-// import { FC, useEffect } from 'react';
 import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import classnames from 'classnames';
 import oAuthService from '../services/oauth';
 import Spinner from '../components/Spinner';
 
+// TODO need to make new route for oAuth  /callback
 const withOAuthCheck = <P extends object>(Component: React.ComponentType<P>): FC => (
   function WithOAuthCheck(props: P) {
     const [isFetching, setIsFetching] = useState(true);
