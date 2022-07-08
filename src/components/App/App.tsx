@@ -12,7 +12,7 @@ import SignInPage from '../../pages/signin';
 import SignUpPage from '../../pages/signup';
 import ProfilePage from '../../pages/profile';
 
-import { storeUser } from '../../store/user';
+import { storeUser } from '../../store/user/userStore';
 import ErrorBoundaryWrapper from '../ErrorBoundaryWrapper';
 import Layout from '../Layout';
 

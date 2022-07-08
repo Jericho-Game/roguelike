@@ -7,8 +7,8 @@ import Button from '../components/Button';
 import AvatarChanger from '../components/AvatarChanger';
 import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
-import { changeProfile } from '../store/user';
-import type { UserState } from '../store/user';
+import { changeProfile } from '../store/user/userStore';
+import type { UserState } from '../store/user/userStore';
 
 type FormData = {
   first_name: string;

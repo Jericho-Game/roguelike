@@ -9,8 +9,8 @@ import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
 import oAuthService from '../services/oauth';
 
-import { signIn } from '../store/user';
-import type { UserState } from '../store/user';
+import { signIn } from '../store/user/userStore';
+import type { UserState } from '../store/user/userStore';
 
 type FormData = {
   login: string;
