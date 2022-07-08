@@ -43,7 +43,6 @@ export default function SignInPage() {
   const handleYandexClick = async () => {
     try {
       const data = await oAuthService.getServiceId();
-      console.log('data', data);
       document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${window.location.origin}`;
     } catch (err) {
       setNotification(err.message);
