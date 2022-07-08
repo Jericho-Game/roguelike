@@ -12,52 +12,50 @@ export default class CanvasContainer {
 
   height = CANVAS_HEIGHT;
 
-  canvasContext: CanvasRenderingContext2D | null = null;
+  context: CanvasRenderingContext2D;
 
-  canvasElement: HTMLCanvasElement | null = null;
+  element: HTMLCanvasElement;
 
   constructor(canvasElement: HTMLCanvasElement) {
     const canvasContext = canvasElement.getContext('2d');
 
-    this.canvasContext = canvasContext;
-    this.canvasElement = canvasElement;
+    this.context = canvasContext as CanvasRenderingContext2D;
+    this.element = canvasElement;
 
-    this.canvasElement.width = CANVAS_WIDTH;
-    this.canvasElement.height = CANVAS_HEIGHT;
+    this.element.width = CANVAS_WIDTH;
+    this.element.height = CANVAS_HEIGHT;
   }
 
   rect({
     x, y, width, height, mode, color,
   }: Rect) {
-    if (this.canvasContext && (mode === RectMode.Fill)) {
-      this.canvasContext.fillStyle = color;
-      this.canvasContext.fillRect(x, y, width, height);
-    } else if (this.canvasContext && (mode === RectMode.Stroke)) {
-      this.canvasContext.strokeStyle = color;
-      this.canvasContext.strokeRect(x, y, width, height);
+    if (this.context && (mode === RectMode.Fill)) {
+      this.context.fillStyle = color;
+      this.context.fillRect(x, y, width, height);
+    } else if (this.context && (mode === RectMode.Stroke)) {
+      this.context.strokeStyle = color;
+      this.context.strokeRect(x, y, width, height);
     }
   }
 
   drawButton({
     x, y, width, height, mode, text, color, textColor = 'white',
   }: Button) {
-    const context = this.canvasContext as CanvasRenderingContext2D;
-
     this.rect({
       x, y, width, height, mode, color,
     });
 
-    context.fillStyle = textColor;
-    context.font = 'bold 24px verdana, sans-serif ';
-    context.fillText(text, x + (width / 2) - (text.length * 6), y + (height / 2) + 10);
+    this.context.fillStyle = textColor;
+    this.context.font = 'bold 24px verdana, sans-serif ';
+    this.context.fillText(text, x + (width / 2) - (text.length * 6), y + (height / 2) + 10);
   }
 
   clear() {
-    this.canvasContext?.clearRect(0, 0, this.width, this.height);
+    this.context.clearRect(0, 0, this.width, this.height);
   }
 
   clearRect(x: number, y: number, width: number, height: number) {
-    this.canvasContext?.clearRect(x, y, width, height);
+    this.context.clearRect(x, y, width, height);
   }
 
   update({
