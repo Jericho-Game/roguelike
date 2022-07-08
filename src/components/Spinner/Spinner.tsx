@@ -30,10 +30,8 @@ export default function Spinner({
         transform: 'rotate(360deg)',
       },
     ], {
-      // eslint-disable-next-line
       duration,
       iterations: Infinity,
-      // eslint-disable-next-line
       easing,
     });
   });

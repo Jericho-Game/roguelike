@@ -1,3 +1,4 @@
 import Spinner from './Spinner';
+import FullScreenSpinner from './FullScreenSpinner';
 
-export default Spinner;
+export { Spinner, FullScreenSpinner };
