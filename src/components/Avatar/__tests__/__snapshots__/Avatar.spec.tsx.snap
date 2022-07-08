@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar Test matches snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square"
+    >
+      <span
+        class="uppercase"
+      >
+        JD
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Avatar Test with className 1`] = `
+<body>
+  <div>
+    <div
+      class="self-center text-7xl flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square"
+    >
+      <span
+        class="uppercase"
+      >
+        JD
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Avatar Test with src 1`] = `
+<body>
+  <div>
+    <div
+      class="flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square"
+    >
+      <img
+        alt="John Doe"
+        class="m-0"
+        src="./qwe.jpg"
+      />
+    </div>
+  </div>
+</body>
+`;

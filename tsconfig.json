@@ -22,5 +22,8 @@
     "node_modules",
     "dist"
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "./jest-setup.ts",
+    "src/**/*"
+  ]
 }
