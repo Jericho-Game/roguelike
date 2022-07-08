@@ -7,6 +7,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
+import oAuthService from '../services/oauth';
 
 import { signIn } from '../store/user';
 import type { UserState } from '../store/user';
@@ -38,6 +39,15 @@ export default function SignInPage() {
       setNotification(err.message);
     }
   });
+
+  const handleYandexClick = async () => {
+    try {
+      const data = await oAuthService.getServiceId();
+      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${window.location.origin}`;
+    } catch (err) {
+      setNotification(err.message);
+    }
+  };
 
   const notifyNode = notification
     ? (
@@ -94,12 +104,31 @@ export default function SignInPage() {
           <Button
             variant="secondary"
             className={classnames(
-              'mt-4 mb-16',
+              'mt-4',
             )}
           >
             <span>Отправить</span>
           </Button>
         </form>
+
+        <div
+          className={classnames(
+            'mt-4 mb-16',
+          )}
+        >
+          <ul>
+            <li>
+              <button
+                type="button"
+                aria-label="Sign in with Yandex"
+                className={classnames(
+                  'h-12 w-12 shadow-none bg-contain border-none bg-no-repeat bg-center bg-[url("assets/images/icons/icon-yandex.svg")]',
+                )}
+                onClick={handleYandexClick}
+              />
+            </li>
+          </ul>
+        </div>
         { notifyNode }
       </div>
     </div>
