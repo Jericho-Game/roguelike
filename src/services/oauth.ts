@@ -19,7 +19,6 @@ class OAuthApi {
       { params: { redirect_uri: window.location.origin } },
     )
       .then((response) => {
-        console.log('response', response);
         return response.data;
       });
   }
