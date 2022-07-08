@@ -14,7 +14,6 @@ const withOAuthCheck = <P extends object>(Component: React.ComponentType<P>): FC
     useEffect(() => {
       const sendCode = async () => {
         if (code) {
-          console.log('code', code);
           try {
             await oAuthService.sendCode(code);
           } catch (error) {
