@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import { useEffect, useState, useRef } from 'react';
 
 type OwnProps = {
@@ -6,6 +7,7 @@ type OwnProps = {
   duration?: number;
   easing?: string;
   color?: string;
+  fullscreen?: boolean;
 };
 
 export default function Spinner({
@@ -14,6 +16,7 @@ export default function Spinner({
   duration = 1000,
   easing = 'ease-out',
   color = 'black',
+  fullscreen = false,
 }: OwnProps) {
   const radius = diameter / 2;
 
@@ -37,24 +40,31 @@ export default function Spinner({
   });
 
   return (
+
     <div
-      ref={arc}
-      style={{
-        height: radius,
-        width: diameter,
-        overflow: 'hidden',
-        transform: `rotate(${deg}deg)`,
-        transformOrigin: '50% 100%',
-      }}
+      className={classnames(
+        { 'fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center': fullscreen },
+      )}
     >
       <div
+        ref={arc}
         style={{
-          height: diameter,
+          height: radius,
           width: diameter,
-          borderRadius: '50%',
-          border: `${width}px solid ${color}`,
+          overflow: 'hidden',
+          transform: `rotate(${deg}deg)`,
+          transformOrigin: '50% 100%',
         }}
-      />
+      >
+        <div
+          style={{
+            height: diameter,
+            width: diameter,
+            borderRadius: '50%',
+            border: `${width}px solid ${color}`,
+          }}
+        />
+      </div>
     </div>
   );
 }
