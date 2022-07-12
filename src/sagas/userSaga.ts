@@ -11,7 +11,7 @@ import {
   signOut,
   storeUser,
   changeProfile,
-} from '../store/user/userStore';
+} from '../store/user';
 import authService from '../services/auth';
 import userService from '../services/user';
 

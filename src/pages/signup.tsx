@@ -7,7 +7,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
-import { signUp, UserState } from '../store/user/userStore';
+import { signUp, UserState } from '../store/user';
 
 type FormData = {
   first_name: string;

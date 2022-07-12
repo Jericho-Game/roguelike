@@ -4,7 +4,7 @@ import produce from 'immer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 
-import user from './user/userStore';
+import user from './user';
 import forum from './forum';
 import rootSaga from '../sagas/rootSaga';
 

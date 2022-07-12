@@ -1,10 +1,15 @@
-import { FC, useEffect, useState } from 'react';
+import {
+  FC,
+  useEffect,
+  useState,
+  ComponentType,
+} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import oAuthService from '../services/oauth';
-import { FullScreenSpinner } from '../components/Spinner';
+import Spinner from '../components/Spinner';
 
 // TODO need to make new route for oAuth  /callback
-const withOAuthCheck = <P extends object>(Component: React.ComponentType<P>): FC => (
+const withOAuthCheck = <P extends Record<string, unknown>>(Component: ComponentType<P>): FC => (
   function WithOAuthCheck(props: P) {
     const [searchParams] = useSearchParams();
     const code = searchParams.get('code');
@@ -30,7 +35,7 @@ const withOAuthCheck = <P extends object>(Component: React.ComponentType<P>): FC
     }, [code]);
 
     return (code && isFetching)
-      ? <FullScreenSpinner />
+      ? <Spinner fullscreen />
       : <Component {...props} />;
   }
 );

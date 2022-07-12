@@ -1,10 +1,8 @@
 import { createSelector } from 'reselect';
 import { UserState } from './userStore';
-import { ForumState } from '../forum';
 
 export type State = {
   user: UserState,
-  forum: ForumState,
 };
 
 export const selectUser = (state: State) => state.user.data;

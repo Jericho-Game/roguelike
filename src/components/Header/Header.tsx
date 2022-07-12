@@ -15,8 +15,8 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import MobilePopover from './components/MobilePopover';
 
-import { signOut } from '../../store/user/userStore';
-import type { UserState } from '../../store/user/userStore';
+import { signOut } from '../../store/user';
+import type { UserState } from '../../store/user';
 
 export default function Header() {
   const dispatch = useDispatch();
