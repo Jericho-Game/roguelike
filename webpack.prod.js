@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
@@ -8,7 +9,15 @@ const clientConfig = merge(common, {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
-  }
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{
+        from: 'src/service-worker',
+        to: './',
+      }]
+    }),
+  ],
 });
 
 const serverConfig = {

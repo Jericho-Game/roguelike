@@ -9,9 +9,9 @@ type OwnProps = {
 
 export default function Notification({ type = 'notification', children, className = '' }: OwnProps) {
   const classesOfType = {
-    error: 'text-error bg-red-200 bg-[url("assets/images/icon-error.svg")]',
-    success: 'text-success bg-green-200 bg-[url("assets/images/icon-success.svg")]',
-    notification: 'text-notification bg-orange-200 bg-[url("assets/images/icon-notification.svg")]',
+    error: 'text-error bg-red-200 bg-[url("assets/images/icons/icon-error.svg")]',
+    success: 'text-success bg-green-200 bg-[url("assets/images/icons/icon-success.svg")]',
+    notification: 'text-notification bg-orange-200 bg-[url("assets/images/icons/icon-notification.svg")]',
   };
 
   return (
