@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Test as another button 1`] = `
+<div
+  class="btn btn-primary hover:bg-primary-hover"
+/>
+`;
+
+exports[`Button Test matches snapshot 1`] = `
+<button
+  class="btn btn-primary hover:bg-primary-hover"
+/>
+`;

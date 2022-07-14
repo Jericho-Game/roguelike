@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Test matches snapshot 1`] = `
+<div
+  data-testid="BrowserRouter"
+>
+  <div
+    data-testid="Layout"
+  >
+    <div
+      data-testid="ErrorBoundaryWrapper"
+    >
+      <div
+        data-testid="Routes"
+      >
+        <div
+          data-testid="Route"
+          path="/"
+        >
+          IndexPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/forum"
+        >
+          ForumPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/forum/:id"
+        >
+          ForumPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/leaderboard"
+        >
+          LeaderboardPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/signin"
+        >
+          SignInPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/signup"
+        >
+          SignUpPage
+        </div>
+        <div
+          data-testid="Route"
+          path="/profile"
+        >
+          ProfilePage
+        </div>
+        <div
+          data-testid="Route"
+          path="*"
+        >
+          Page404
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

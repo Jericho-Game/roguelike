@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarChanger Test matches snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="bg-white rounded-xl p-4 pb-16 flex flex-col justify-between h-full relative"
+    >
+      <div
+        class="self-center text-7xl flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square"
+      >
+        <img
+          alt="John Doe"
+          class="m-0"
+          src="qwe.jpg"
+        />
+      </div>
+      <button
+        class="btn btn-secondary mt-4 mb-0 hover:bg-secondary-hover"
+        type="button"
+      >
+        <span>
+          Edit
+        </span>
+      </button>
+    </div>
+  </div>
+</body>
+`;
