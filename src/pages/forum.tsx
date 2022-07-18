@@ -11,6 +11,7 @@ import ForumCategories from '../components/ForumCategories';
 import ForumThread from '../components/ForumThread';
 
 import { ForumState, getThread, getThreads } from '../store/forum';
+import PageMeta from '../components/PageMeta';
 
 const categories = ['main', 'questions', 'versions'];
 
@@ -21,7 +22,6 @@ export default function ForumPage() {
   const { data = [], current, error } = useSelector((state: { forum: ForumState }) => state.forum);
 
   useEffect(() => {
-    console.log({ error, data });
     if (error) {
       handleError(error);
     }
@@ -40,10 +40,14 @@ export default function ForumPage() {
 
   return (
     <UITab.Group>
+      <PageMeta
+        title={`Forum - ${current?.title ?? 'Home'}`}
+        description={current ? `${current?.title} forum thread` : 'Forum description'}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <h1 className="mb-2">{current?.title ?? 'Forum'}</h1>
       </div>
-      {(current) ? (
+      {current ? (
         <div className="flex space-x-4 px-4 sm:px-6 max-w-7xl mx-auto w-full">
           <Tab
             as={Link}

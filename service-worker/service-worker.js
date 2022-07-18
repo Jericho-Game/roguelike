@@ -6,7 +6,7 @@ const URLS = [
   '/leaderboard',
   '/forum',
   '/profile',
-  '/main.js',
+  '/bundle.js',
   '/main.css',
 ];
 
@@ -42,6 +42,11 @@ this.addEventListener('fetch', (event) => {
             const responseToCache = response.clone();
             caches.open(CACHE_NAME)
               .then((cache) => {
+                if (
+                  event.request.url.startsWith('chrome-extension') ||
+                  event.request.url.includes('extension') ||
+                  !(event.request.url.indexOf('http') === 0)
+                ) return;
                 cache.put(event.request, responseToCache);
               });
             return response;

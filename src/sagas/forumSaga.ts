@@ -30,8 +30,11 @@ function* getThreadWorker(action: ForumAction<number | null>) {
   const { success, fulfill, failure } = getThread;
 
   try {
+    if (!action.payload) {
+      throw new Error('No thread id provided');
+    }
     const current = action.payload
-      ? forumData.find((thread) => thread.id === action.payload)
+      ? forumData.find((thread) => thread.id === +action.payload!)
       : null;
 
     yield put(success({ current }));

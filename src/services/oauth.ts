@@ -18,9 +18,7 @@ class OAuthApi {
       '/service-id',
       { params: { redirect_uri: window.location.origin } },
     )
-      .then((response) => {
-        return response.data;
-      });
+      .then((response) => response.data);
   }
 
   sendCode(code: string): Promise<void> {

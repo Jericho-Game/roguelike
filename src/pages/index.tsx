@@ -1,12 +1,18 @@
 import { RefreshIcon } from '@heroicons/react/solid';
 import Button from '../components/Button';
-import useGame from '../hooks/game';
+import useGame from '../hooks/useGame';
+
+import PageMeta from '../components/PageMeta';
 
 export default function IndexPage() {
   const { canvasRef, restart } = useGame();
 
   return (
     <div className="w-full aspect-video">
+      <PageMeta
+        title="Roguelike"
+        description="Roguelike game with React, TypeScript, and Webpack"
+      />
       <div className="flex flex-row justify-center">
         <canvas ref={canvasRef} />
 

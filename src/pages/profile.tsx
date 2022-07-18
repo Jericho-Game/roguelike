@@ -9,6 +9,7 @@ import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
 import { changeProfile } from '../store/user';
 import type { UserState } from '../store/user';
+import PageMeta from '../components/PageMeta';
 
 type FormData = {
   first_name: string;
@@ -154,6 +155,10 @@ export default function ProfilePage() {
         'flex flex-col h-full',
       )}
     >
+      <PageMeta
+        title="Profile"
+        description="User profile page"
+      />
       <h1
         className={classnames(
           'max-w-7xl mx-auto px-4 sm:px-6 w-full pb-2',

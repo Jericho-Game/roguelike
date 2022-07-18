@@ -54,13 +54,16 @@ export default class Player extends Actor {
     const prevPosition = { ...this.position };
 
     const getNextPosition = this.controls[keyCode];
-    const position = getNextPosition(this.position);
-    const isValidPosition = this.checkElement?.(this, position);
 
-    if (isValidPosition) {
-      this.position = position;
+    if (getNextPosition) {
+      const position = getNextPosition(this.position);
+      const isValidPosition = this.checkElement?.(this, position);
 
-      this.update?.(this, prevPosition);
+      if (isValidPosition) {
+        this.position = position;
+
+        this.update?.(this, prevPosition);
+      }
     }
   }
 }

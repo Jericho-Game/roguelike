@@ -12,6 +12,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "src/@types",
