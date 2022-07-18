@@ -52,7 +52,8 @@ function* storeUserWorker() {
 
   try {
     const { data } = yield call([authService, authService.getData]);
-    data.avatar = `https://ya-praktikum.tech/api/v2/resources${data.avatar}`;
+
+    data.avatar = data?.avatar ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}` : undefined;
     yield put(success({ data }));
   } catch (error) {
     yield put(failure({ error }));

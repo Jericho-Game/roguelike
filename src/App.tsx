@@ -2,6 +2,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
+import { compose } from 'redux';
 import { useDispatch } from 'react-redux';
 
 import { storeUser } from './store/user';
@@ -9,6 +10,7 @@ import ErrorBoundaryWrapper from './components/ErrorBoundaryWrapper';
 import Layout from './components/Layout';
 import routes from './routes';
 import withOAuthCheck from './hocs/with-oauth-check';
+import withAuthCheck from './hocs/with-auth-check';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,4 +30,7 @@ function App() {
   );
 }
 
-export default withOAuthCheck(App);
+export default compose(
+  withOAuthCheck,
+  withAuthCheck,
+)(App);

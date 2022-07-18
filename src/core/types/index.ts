@@ -18,12 +18,14 @@ type Rect = {
   mode: RectMode;
 };
 
-type Button = Rect & {
+type Text = {
   text: string;
+  textColor: string;
 };
 
-type Update = Partial<Rect> & {
-  text?: string;
+type Button = Rect & Text;
+
+type Update = Partial<Rect> & Partial<Text> & {
   type: Drawing;
 };
 

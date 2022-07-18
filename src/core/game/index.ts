@@ -27,11 +27,11 @@ export default class Game {
 
   private generatedLevel = new Map<string, AbstractEntity | Actor>();
 
-  private canvas: CanvasContainer | null = null;
+  private canvas: CanvasContainer;
 
-  private player: Player | null = null;
+  private player: Player;
 
-  private enemy: Enemy | null = null;
+  private enemy: Enemy;
 
   private rooms = roomsMock;
 
@@ -61,8 +61,6 @@ export default class Game {
 
   cleanLevel() {
     this.player?.destroy();
-    this.player = null;
-    this.enemy = null;
     this.generatedLevel = new Map();
   }
 
@@ -86,33 +84,43 @@ export default class Game {
   generateStartScreen() {
     const eventName = 'mouseup';
     const text = 'Start';
-    const [x, y] = [300, 300];
+    const canvasElement = this.canvas.element as HTMLCanvasElement;
     const [width, height] = [200, 100];
-    const color = 'black';
+    const [x, y] = [
+      canvasElement.width / 2 - width / 2,
+      canvasElement.height / 2 - height / 2,
+    ];
+    const color = '#5e48e8';
+    const textColor = 'white';
 
     const handler = (event: MouseEvent) => {
       const { offsetX, offsetY } = event;
+      const [newX, newY] = [
+        canvasElement.offsetWidth / 2 - width / 2,
+        canvasElement.offsetHeight / 2 - height / 2,
+      ];
 
       if (
-        offsetX >= x
-        && offsetX <= (x + width)
-        && offsetY >= y
-        && offsetY <= (y + height)
+        offsetX >= newX
+        && offsetX <= (newX + width)
+        && offsetY >= newY
+        && offsetY <= (newY + height)
       ) {
         this.type = GAME_ON_TYPE;
 
         this.update();
-        this.canvas?.canvasElement?.removeEventListener(eventName, handler);
+        this.canvas.element.removeEventListener(eventName, handler);
       }
     };
 
-    this.canvas?.canvasElement?.addEventListener(eventName, handler);
+    this.canvas.element.addEventListener(eventName, handler);
     this.canvas?.update({
       x,
       y,
       width,
       height,
       text,
+      textColor,
       color,
       mode: RectMode.Fill,
       type: Drawing.Button,
