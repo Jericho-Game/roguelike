@@ -5,16 +5,15 @@ import livereload from 'livereload';
 import connectLivereload from 'connect-livereload';
 import serverRenderMiddleware from './render-middleware';
 
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once('connection', () => {
-  setTimeout(() => {
-    liveReloadServer.refresh('/');
-  }, 100);
-});
-
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
+  const liveReloadServer = livereload.createServer();
+  liveReloadServer.server.once('connection', () => {
+    setTimeout(() => {
+      liveReloadServer.refresh('/');
+    }, 100);
+  });
   app.use(connectLivereload());
 }
 
