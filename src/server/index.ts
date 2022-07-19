@@ -14,7 +14,9 @@ liveReloadServer.server.once('connection', () => {
 
 const app = express();
 
-app.use(connectLivereload());
+if (process.env.NODE_ENV === 'development') {
+  app.use(connectLivereload());
+}
 
 app
   // .use(compression())
