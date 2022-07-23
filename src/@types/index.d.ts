@@ -1,6 +1,8 @@
 declare module '*.gif';
 declare module '*.svg';
 
+declare module 'fork-ts-checker-webpack-plugin';
+
 type Nullable<T> = T | null;
 
 type Action<T> = {

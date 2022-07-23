@@ -9,7 +9,9 @@ import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
 import oAuthService from '../services/oauth';
 
-import { signIn, UserState } from '../store/user';
+import { signIn } from '../store/user';
+import type { UserState } from '../store/user';
+import PageMeta from '../components/PageMeta';
 
 type FormData = {
   login: string;
@@ -62,6 +64,10 @@ export default function SignInPage() {
         'grid grid-rows-[1fr] justify-center items-center w-full h-full bg-gray-100',
       )}
     >
+      <PageMeta
+        title="Sign in"
+        description="Sign in to the game"
+      />
       <div
         className={classnames(
           'grid grid-rows-[1fr] justify-center items-center bg-white py-6 px-8 relative',

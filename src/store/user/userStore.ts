@@ -5,7 +5,7 @@ export type UserState = {
   error: Nullable<Error>;
 };
 
-const initialState: UserState = {
+export const initialState: UserState = {
   data: null,
   error: null,
 };

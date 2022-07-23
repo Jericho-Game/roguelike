@@ -31,7 +31,7 @@ function* getThreadWorker(action: ForumAction<number | null>) {
 
   try {
     const current = action.payload
-      ? forumData.find((thread) => thread.id === action.payload)
+      ? forumData.find((thread) => thread.id === Number(action.payload))
       : null;
 
     yield put(success({ current }));

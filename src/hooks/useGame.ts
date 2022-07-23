@@ -1,5 +1,8 @@
 import {
-  useRef, useState, useCallback, useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
 } from 'react';
 import GameManager from '../core/gameManager';
 

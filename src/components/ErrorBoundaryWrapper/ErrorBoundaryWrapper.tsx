@@ -18,7 +18,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
         </a>
         <div className="w-full flex justify-between">
           <pre className="my-4">{error.message}</pre>
-          <Button variant="secondary" onClick={resetErrorBoundary}>Reload page</Button>
+          <Button variant="secondary" onClick={resetErrorBoundary}>Reload app</Button>
         </div>
       </div>
     </div>
