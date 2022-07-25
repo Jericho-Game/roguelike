@@ -5,6 +5,7 @@ import userReducer, {
   storeUser,
   signOut,
   changeProfile,
+  initialState,
   UserState,
 } from './userStore';
 
@@ -17,5 +18,6 @@ export {
   storeUser,
   signOut,
   changeProfile,
+  initialState,
   UserState,
 };

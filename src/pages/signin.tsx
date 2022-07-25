@@ -9,7 +9,11 @@ import Notification from '../components/Notification';
 import patterns from '../utils/formValidation';
 import oAuthService from '../services/oauth';
 
-import { signIn, UserState } from '../store/user';
+import { signIn } from '../store/user';
+import type { UserState } from '../store/user';
+import PageMeta from '../components/PageMeta';
+
+import img from '../assets/images/icons/icon-yandex.svg';
 
 type FormData = {
   login: string;
@@ -62,6 +66,10 @@ export default function SignInPage() {
         'grid grid-rows-[1fr] justify-center items-center w-full h-full bg-gray-100',
       )}
     >
+      <PageMeta
+        title="Sign in"
+        description="Sign in to the game"
+      />
       <div
         className={classnames(
           'grid grid-rows-[1fr] justify-center items-center bg-white py-6 px-8 relative',
@@ -121,10 +129,12 @@ export default function SignInPage() {
                 type="button"
                 aria-label="Sign in with Yandex"
                 className={classnames(
-                  'h-12 w-12 shadow-none bg-contain border-none bg-no-repeat bg-center bg-[url("assets/images/icons/icon-yandex.svg")]',
+                  'h-12 w-12 shadow-none bg-contain border-none bg-no-repeat bg-center',
                 )}
                 onClick={handleYandexClick}
-              />
+              >
+                <img src={img} alt="oauth" />
+              </button>
             </li>
           </ul>
         </div>

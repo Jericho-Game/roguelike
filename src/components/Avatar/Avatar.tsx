@@ -17,8 +17,8 @@ export default function Avatar({
   return (
     <div
       className={classnames(
-        className,
         'flex items-center justify-center overflow-hidden bg-gray-100 rounded-full relative w-1/2 aspect-square',
+        className,
       )}
     >
       {src

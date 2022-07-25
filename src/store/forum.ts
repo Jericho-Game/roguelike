@@ -6,7 +6,7 @@ export type ForumState = {
   error: Nullable<Error>;
 };
 
-const initialState: ForumState = {
+export const initialState: ForumState = {
   data: null,
   current: null,
   error: null,

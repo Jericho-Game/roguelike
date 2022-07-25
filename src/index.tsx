@@ -1,23 +1,24 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import store from './store';
+import { store, history } from './store';
 import startServiceWorker from './utils/startServiceWorker';
 
-import App from './components/App';
+import App from './App';
 import './index.css';
 
 startServiceWorker();
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <StrictMode>
-    <Router>
-      <Provider store={store}>
+    <Provider store={store}>
+      <HistoryRouter history={history}>
         <App />
-      </Provider>
-    </Router>
+      </HistoryRouter>
+    </Provider>
   </StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('app'),
 );
