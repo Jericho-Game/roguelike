@@ -12,15 +12,13 @@ import './index.css';
 
 startServiceWorker();
 
-if (typeof window !== 'undefined') {
-  ReactDOM.hydrate(
-    <StrictMode>
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <App />
-        </HistoryRouter>
-      </Provider>
-    </StrictMode>,
-    document.getElementById('app'),
-  );
-}
+ReactDOM.hydrate(
+  <StrictMode>
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <App />
+      </HistoryRouter>
+    </Provider>
+  </StrictMode>,
+  document.getElementById('app'),
+);

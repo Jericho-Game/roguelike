@@ -13,6 +13,8 @@ import { signIn } from '../store/user';
 import type { UserState } from '../store/user';
 import PageMeta from '../components/PageMeta';
 
+import img from '../assets/images/icons/icon-yandex.svg';
+
 type FormData = {
   login: string;
   password: string;
@@ -127,10 +129,12 @@ export default function SignInPage() {
                 type="button"
                 aria-label="Sign in with Yandex"
                 className={classnames(
-                  'h-12 w-12 shadow-none bg-contain border-none bg-no-repeat bg-center bg-[url("assets/images/icons/icon-yandex.svg")]',
+                  'h-12 w-12 shadow-none bg-contain border-none bg-no-repeat bg-center',
                 )}
                 onClick={handleYandexClick}
-              />
+              >
+                <img src={img} alt="oauth" />
+              </button>
             </li>
           </ul>
         </div>
